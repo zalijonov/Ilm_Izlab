@@ -26,7 +26,7 @@ import uz.alijonovz.ilmizlab.model.region.RegionIdModel
 import uz.alijonovz.ilmizlab.model.request.GetCenterByIdRequest
 import uz.alijonovz.ilmizlab.screen.category.CategoryListActivity
 import uz.alijonovz.ilmizlab.screen.center.CenterActivity
-import uz.alijonovz.ilmizlab.screen.main.MainViewModel
+import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.screen.region.RegionActivity
 import uz.alijonovz.ilmizlab.utils.Constants
 import java.util.*

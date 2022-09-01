@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -29,6 +30,7 @@ import uz.alijonovz.ilmizlab.api.ApiService
 import uz.alijonovz.ilmizlab.databinding.ActivityMainBinding
 import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.login.GetTokenModel
+import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.screen.auth.LoginActivity
 import uz.alijonovz.ilmizlab.screen.main.home.HomeFragment
 import uz.alijonovz.ilmizlab.screen.main.map.MapsFragment
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     var currentFragment: Fragment = homeFragment
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var binding: ActivityMainBinding
+    lateinit var viewModel: MainViewModel
     private lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +57,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        getUser()
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel.error.observe(this){
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
+        viewModel.tokenData.observe(this){
+            binding.navigation.drUserName.text = it.fullname
+            binding.navigation.drUserPhone.text = "+" + it.phone
+            Glide.with(this@MainActivity)
+                .load(Constants.IMAGE_URL + it.avatar)
+                .into(binding.navigation.drUserImg)
+        }
+        viewModel.getUser()
         toggle = ActionBarDrawerToggle(this, binding.drawer, R.string.open, R.string.close)
         binding.drawer.addDrawerListener(toggle)
         toggle.syncState()
@@ -220,25 +234,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             requestPermission()
         }
-    }
-
-    fun getUser() {
-        ApiService.apiClient().getUser().enqueue(object : Callback<BaseResponse<GetTokenModel>> {
-            override fun onResponse(
-                call: Call<BaseResponse<GetTokenModel>>,
-                response: Response<BaseResponse<GetTokenModel>>
-            ) {
-                binding.navigation.drUserName.text = response.body()?.data?.fullname ?: ""
-                binding.navigation.drUserPhone.text = "+" + response.body()?.data?.phone ?: ""
-                Glide.with(this@MainActivity)
-                    .load(Constants.IMAGE_URL + response.body()?.data?.avatar ?: "")
-                    .into(binding.navigation.drUserImg)
-            }
-
-            override fun onFailure(call: Call<BaseResponse<GetTokenModel>>, t: Throwable) {
-
-            }
-        })
     }
 
     private fun requestPermission() {

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,12 +16,15 @@ import uz.alijonovz.ilmizlab.api.ApiService
 import uz.alijonovz.ilmizlab.databinding.FragmentNewsCenterBinding
 import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.center.NewsModel
+import uz.alijonovz.ilmizlab.screen.MainViewModel
 
 class NewsCenterFragment : Fragment() {
     var item = 0
     lateinit var binding: FragmentNewsCenterBinding
+    lateinit var viewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         item = arguments?.getInt("extra_news")!!
     }
 
@@ -34,35 +38,14 @@ class NewsCenterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadNews(item)
-    }
-
-    private fun loadNews(id: Int) {
-        ApiService.apiClient().getNewsById(id)
-            .enqueue(object : Callback<BaseResponse<List<NewsModel>>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<List<NewsModel>>>,
-                    response: Response<BaseResponse<List<NewsModel>>>
-                ) {
-                    if (response.body()!!.success) {
-                        binding.recyclerNews.layoutManager =
-                            LinearLayoutManager(requireActivity())
-                        binding.recyclerNews.adapter =
-                            NewsAdapter(response.body()?.data ?: emptyList())
-                    } else {
-                        Toast.makeText(
-                            requireActivity(),
-                            response.body()!!.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<BaseResponse<List<NewsModel>>>, t: Throwable) {
-                    Toast.makeText(requireActivity(), t.localizedMessage, Toast.LENGTH_SHORT).show()
-                }
-
-            })
+        viewModel.error.observe(requireActivity()){
+            Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+        }
+        viewModel.newsData.observe(requireActivity()){
+            binding.recyclerNews.layoutManager = LinearLayoutManager(requireActivity())
+            binding.recyclerNews.adapter = NewsAdapter(it)
+        }
+        viewModel.loadNews(item)
     }
 
     companion object {

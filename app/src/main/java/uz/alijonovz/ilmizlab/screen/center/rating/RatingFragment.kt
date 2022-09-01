@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,12 +16,15 @@ import uz.alijonovz.ilmizlab.api.ApiService
 import uz.alijonovz.ilmizlab.databinding.FragmentRatingBinding
 import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.center.RatingModel
+import uz.alijonovz.ilmizlab.screen.MainViewModel
 
 class RatingFragment : Fragment() {
     var item = 0
     lateinit var binding: FragmentRatingBinding
+    lateinit var viewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         item = arguments?.getInt("extra_rating")!!
     }
 
@@ -34,34 +38,14 @@ class RatingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadComments(item)
-    }
-
-    private fun loadComments(id: Int) {
-        ApiService.apiClient().getRatings(id)
-            .enqueue(object : Callback<BaseResponse<List<RatingModel>>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<List<RatingModel>>>,
-                    response: Response<BaseResponse<List<RatingModel>>>
-                ) {
-                    if (response.body()!!.success) {
-                        binding.recyclerComment.layoutManager =
-                            LinearLayoutManager(requireActivity())
-                        binding.recyclerComment.adapter =
-                            RatingAdapter(response.body()?.data ?: emptyList())
-                    } else {
-                        Toast.makeText(
-                            requireActivity(),
-                            response.body()!!.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<BaseResponse<List<RatingModel>>>, t: Throwable) {
-                    Toast.makeText(requireActivity(), t.localizedMessage, Toast.LENGTH_SHORT).show()
-                }
-            })
+        viewModel.error.observe(requireActivity()) {
+            Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
+        }
+        viewModel.commentData.observe(requireActivity()) {
+            binding.recyclerComment.layoutManager = LinearLayoutManager(requireActivity())
+            binding.recyclerComment.adapter = RatingAdapter(it)
+        }
+        viewModel.loadComments(item)
     }
 
     companion object {

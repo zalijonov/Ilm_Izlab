@@ -15,7 +15,7 @@ import uz.alijonovz.ilmizlab.adapter.viewpager.ViewPagerAdapter
 import uz.alijonovz.ilmizlab.adapter.viewpager.autoScroll
 import uz.alijonovz.ilmizlab.databinding.FragmentHomeBinding
 import uz.alijonovz.ilmizlab.model.request.GetCenterByIdRequest
-import uz.alijonovz.ilmizlab.screen.main.MainViewModel
+import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.utils.Constants
 
 class HomeFragment : Fragment() {

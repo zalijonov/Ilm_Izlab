@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,19 +14,21 @@ import uz.alijonovz.ilmizlab.databinding.ActivityRateBinding
 import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.center.CenterModel
 import uz.alijonovz.ilmizlab.model.center.request.MakeRatingModel
+import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.screen.auth.LoginActivity
 import uz.alijonovz.ilmizlab.utils.PrefUtils
 
 class RateActivity : AppCompatActivity() {
     lateinit var item: CenterModel
     lateinit var binding: ActivityRateBinding
+    lateinit var viewModel: MainViewModel
     var rating = 5.0
     var comment = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRateBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         item = intent.getSerializableExtra("extra_center_rate") as CenterModel
 
         binding.tvTitle.text = item.name
@@ -44,10 +47,21 @@ class RateActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
+        viewModel.progress.observe(this){
+
+        }
+        viewModel.ratingData.observe(this){
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
+
+        viewModel.error.observe(this){
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
+
         binding.btnRate.setOnClickListener {
             rating = binding.ratingBar.rating.toDouble()
             comment = binding.edtComment.text.toString()
-            makeRating(rating, comment, item.id)
+            viewModel.makeRating(rating, comment, item.id)
             finish()
         }
 
@@ -56,23 +70,4 @@ class RateActivity : AppCompatActivity() {
         }
     }
 
-    fun makeRating(rating: Double, comment:String, center_id:Int){
-        ApiService.apiClient().makeRating(MakeRatingModel(rating, comment, center_id)).enqueue(object: Callback<BaseResponse<Any>>{
-            override fun onResponse(
-                call: Call<BaseResponse<Any>>,
-                response: Response<BaseResponse<Any>>
-            ) {
-                if(response.isSuccessful){
-                    Toast.makeText(this@RateActivity, response.body()!!.message, Toast.LENGTH_SHORT).show()
-                } else{
-                    Toast.makeText(this@RateActivity, response.message(), Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<BaseResponse<Any>>, t: Throwable) {
-                Toast.makeText(this@RateActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
-            }
-
-        })
-    }
 }

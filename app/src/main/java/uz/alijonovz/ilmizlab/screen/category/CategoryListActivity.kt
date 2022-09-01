@@ -1,7 +1,9 @@
 package uz.alijonovz.ilmizlab.screen.category
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
@@ -14,9 +16,11 @@ import uz.alijonovz.ilmizlab.databinding.ActivityCategoryListBinding
 import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.category.CategoryIdModel
 import uz.alijonovz.ilmizlab.model.category.CategoryModel
+import uz.alijonovz.ilmizlab.screen.MainViewModel
 
 class CategoryListActivity : AppCompatActivity() {
     lateinit var binding: ActivityCategoryListBinding
+    lateinit var viewModel: MainViewModel
     var categoryId = 0
     var scienceId = 0
     var categoryName = ""
@@ -24,8 +28,26 @@ class CategoryListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCategoryListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        loadCategories()
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel.error.observe(this) {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
+        viewModel.categoryData.observe(this) {
+            binding.recyclerScience.layoutManager = LinearLayoutManager(this)
+            binding.recyclerScience.adapter = CategoryListAdapter(it,
+                object : CategoryListAdapterListener {
+                    override fun onClick(
+                        categoryId: Int,
+                        scienceId: Int,
+                        categoryName: String
+                    ) {
+                        this@CategoryListActivity.categoryId = categoryId
+                        this@CategoryListActivity.scienceId = scienceId
+                        this@CategoryListActivity.categoryName = categoryName
+                    }
+                })
+        }
+        viewModel.loadCategory()
 
         binding.btnSelect.setOnClickListener {
             val category = CategoryIdModel(
@@ -41,37 +63,4 @@ class CategoryListActivity : AppCompatActivity() {
         }
     }
 
-    fun loadCategories() {
-        ApiService.apiClient().getCategory()
-            .enqueue(object : Callback<BaseResponse<List<CategoryModel>>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<List<CategoryModel>>>,
-                    response: Response<BaseResponse<List<CategoryModel>>>
-                ) {
-                    binding.recyclerScience.layoutManager =
-                        LinearLayoutManager(this@CategoryListActivity)
-                    binding.recyclerScience.adapter = CategoryListAdapter(
-                        response.body()?.data ?: emptyList(),
-                        object : CategoryListAdapterListener {
-                            override fun onClick(
-                                categoryId: Int,
-                                scienceId: Int,
-                                categoryName: String
-                            ) {
-                                this@CategoryListActivity.categoryId = categoryId
-                                this@CategoryListActivity.scienceId = scienceId
-                                this@CategoryListActivity.categoryName = categoryName
-                            }
-                        })
-                }
-
-                override fun onFailure(
-                    call: Call<BaseResponse<List<CategoryModel>>>,
-                    t: Throwable
-                ) {
-
-                }
-
-            })
-    }
 }

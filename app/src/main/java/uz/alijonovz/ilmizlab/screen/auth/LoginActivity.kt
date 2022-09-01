@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,6 +14,7 @@ import uz.alijonovz.ilmizlab.api.ApiService
 import uz.alijonovz.ilmizlab.databinding.ActivityLoginBinding
 import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.login.*
+import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.screen.main.MainActivity
 import uz.alijonovz.ilmizlab.utils.PrefUtils
 
@@ -28,12 +30,44 @@ class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
     var phone: String = ""
     var password: String = ""
+    lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel.error.observe(this) {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
+        viewModel.phoneCheckData.observe(this) {
+            state = if (it.isReg) {
+                LoginState.LOGIN
+            } else {
+                LoginState.REGISTRATION
+            }
+            initViews()
+        }
 
+        viewModel.progress.observe(this) {
+            if (it) {
+                binding.lyProgress.visibility = View.VISIBLE
+                binding.progress.progress = ProgressBar.VISIBLE
+            } else {
+                binding.lyProgress.visibility = View.GONE
+                binding.progress.progress = ProgressBar.GONE
+            }
+        }
+
+        viewModel.tokenData.observe(this) {
+            PrefUtils.setToken(it.token)
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
+
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
         binding.ed1.setOnKeyListener(GenericKeyEvent(binding.ed1, null))
         binding.ed2.setOnKeyListener(GenericKeyEvent(binding.ed2, binding.ed1))
         binding.ed3.setOnKeyListener(GenericKeyEvent(binding.ed3, binding.ed2))
@@ -50,19 +84,19 @@ class LoginActivity : AppCompatActivity() {
             when (state) {
                 LoginState.CHECK_PHONE -> {
                     phone = binding.edPhone.text.toString().replace(" ", "").replace("+", "")
-                    checkPhone(phone)
+                    viewModel.checkPhone(phone)
                     initViews()
                 }
 
                 LoginState.LOGIN -> {
                     phone = binding.edPhone.text.toString().replace(" ", "").replace("+", "")
                     password = binding.edPassword.text.toString()
-                    login(phone, password)
+                    viewModel.login(phone, password)
                 }
 
                 LoginState.REGISTRATION -> {
                     phone = binding.edPhone.text.toString()
-                    sendCode(phone)
+                    viewModel.sendCode(phone)
                     val fullname = binding.edName.text.toString()
                     val password = binding.edPassword.text.toString()
                     val repassword = binding.edConfirmPassword.text.toString()
@@ -92,12 +126,12 @@ class LoginActivity : AppCompatActivity() {
                 }
                 LoginState.CONFIRM -> {
                     phone = binding.edPhone.text.toString().replace(" ", "")
-                    checkPhone(phone)
-                    sendCode(phone)
+                    viewModel.checkPhone(phone)
+                    viewModel.sendCode(phone)
                     val password = binding.edPassword.text.toString()
                     val edCode: String =
                         (binding.ed1.text.toString() + binding.ed2.text.toString() + binding.ed3.text.toString() + binding.ed4.text.toString())
-                    confirmUser(phone, password, edCode)
+                    viewModel.confirmUser(phone, password, edCode)
                     initViews()
                 }
             }
@@ -152,78 +186,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkPhone(phone: String) {
-        ApiService.apiClient().checkPhone(CheckPhoneRequest(phone))
-            .enqueue(object : Callback<BaseResponse<CheckResult>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<CheckResult>>,
-                    response: Response<BaseResponse<CheckResult>>
-                ) {
-                    binding.lyProgress.visibility = View.GONE
-                    binding.progress.progress = ProgressBar.GONE
-                    if(response.isSuccessful) {
-                        if (response.body()!!.success) {
-                            state = if (response.body()!!.data.isReg) {
-                                LoginState.LOGIN
-                            } else {
-                                LoginState.REGISTRATION
-                            }
-                            initViews()
-                        } else {
-                            Toast.makeText(
-                                this@LoginActivity,
-                                response.body()!!.message,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }else{
-                        Toast.makeText(this@LoginActivity, response.message(), Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<BaseResponse<CheckResult>>, t: Throwable) {
-                    binding.lyProgress.visibility = View.GONE
-                    binding.progress.progress = ProgressBar.GONE
-                    Toast.makeText(this@LoginActivity, t.localizedMessage, Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-            })
-    }
-
-    fun login(phone: String, password: String) {
-        ApiService.apiClient().login(LoginModel(phone, password))
-            .enqueue(object : Callback<BaseResponse<GetTokenModel>> {
-                override fun onResponse(
-
-                    call: Call<BaseResponse<GetTokenModel>>,
-                    response: Response<BaseResponse<GetTokenModel>>
-                ) {
-                    binding.lyProgress.visibility = View.GONE
-                    binding.progress.progress = ProgressBar.GONE
-                    if (response.body()!!.success) {
-                        PrefUtils.setToken(response.body()?.data?.token ?: "")
-                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                        finish()
-                    } else {
-                        Toast.makeText(
-                            this@LoginActivity,
-                            response.body()!!.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-
-                override fun onFailure(call: Call<BaseResponse<GetTokenModel>>, t: Throwable) {
-                    binding.lyProgress.visibility = View.GONE
-                    binding.progress.progress = ProgressBar.GONE
-                    Toast.makeText(this@LoginActivity, t.localizedMessage, Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-            })
-    }
-
     fun registration(fullname: String, phone: String, smsCode: String) {
         ApiService.apiClient().registration(RegistrationRequest(fullname, phone, smsCode))
             .enqueue(object : Callback<BaseResponse<GetTokenModel>> {
@@ -245,60 +207,10 @@ class LoginActivity : AppCompatActivity() {
                 ) {
                     binding.lyProgress.visibility = View.GONE
                     binding.progress.progress = ProgressBar.GONE
-                    Toast.makeText(this@LoginActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, t.localizedMessage, Toast.LENGTH_SHORT)
+                        .show()
                 }
 
             })
-    }
-
-    fun sendCode(smsCode: String){
-        ApiService.apiClient().sendConfirmCode(ConfirmRequest(smsCode)).enqueue(object: Callback<BaseResponse<CheckResult>>{
-            override fun onResponse(
-                call: Call<BaseResponse<CheckResult>>,
-                response: Response<BaseResponse<CheckResult>>
-            ) {
-                binding.lyProgress.visibility = View.GONE
-                binding.progress.progress = ProgressBar.GONE
-                if(response.body()!!.success){
-                    if(response.body()!!.data.isReg){
-                        LoginState.LOGIN
-                    } else{
-                        LoginState.REGISTRATION
-                    }
-                    initViews()
-                } else {
-                    Toast.makeText(this@LoginActivity, response.body()!!.message, Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<BaseResponse<CheckResult>>, t: Throwable) {
-                binding.lyProgress.visibility = View.GONE
-                binding.progress.progress = ProgressBar.GONE
-                Toast.makeText(this@LoginActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
-            }
-
-        })
-    }
-
-    fun confirmUser(phone: String, password: String, sms_code: String){
-        ApiService.apiClient().confirm(ConfirmUser(phone, password, sms_code)).enqueue(object: Callback<BaseResponse<GetTokenModel>>{
-            override fun onResponse(
-                call: Call<BaseResponse<GetTokenModel>>,
-                response: Response<BaseResponse<GetTokenModel>>
-            ) {
-                binding.lyProgress.visibility = View.GONE
-                binding.progress.progress = ProgressBar.GONE
-                if(response.body()!!.success){
-                    PrefUtils.setToken(response.body()?.data?.token ?: "")
-                    startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                    finish()
-                }
-            }
-
-            override fun onFailure(call: Call<BaseResponse<GetTokenModel>>, t: Throwable) {
-                Toast.makeText(this@LoginActivity, t.localizedMessage, Toast.LENGTH_SHORT).show()
-            }
-
-        })
     }
 }

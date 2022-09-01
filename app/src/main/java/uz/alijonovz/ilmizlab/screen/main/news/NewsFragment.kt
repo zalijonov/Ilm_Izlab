@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import uz.alijonovz.ilmizlab.adapter.center.NewsAdapter
 import uz.alijonovz.ilmizlab.databinding.FragmentNewsBinding
-import uz.alijonovz.ilmizlab.screen.main.MainViewModel
+import uz.alijonovz.ilmizlab.screen.MainViewModel
 
 class NewsFragment : Fragment() {
     lateinit var viewModel: MainViewModel
