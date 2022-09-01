@@ -1,0 +1,8 @@
+<resources>
+  <style name="Theme.IlmIzlab.NoActionBar" >
+  <item name="windowActionBar">false</item>
+  <item name="windowNoTitle">true</item>
+</style>
+  <style name="Theme.IlmIzlab.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+  <style name="Theme.IlmIzlab.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#FFAB00</color>
+    <color name="secondaryColor">#FFD600</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="bgColor">#F8F8F8</color>
+    <color name="angle">#74000000</color>
+    <color name="actionBarColor">#4527A0</color>
+    <color name="button_color">#303F9F</color>
+    <color name="editText">#D6D6D6</color>
+    <color name="red">#FF0101</color>
+</resources>

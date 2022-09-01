@@ -1,0 +1,49 @@
+package uz.alijonovz.ilmizlab.adapter.center
+
+import android.content.Intent
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import uz.alijonovz.ilmizlab.databinding.NewsItemLayoutBinding
+import uz.alijonovz.ilmizlab.model.center.NewsModel
+import uz.alijonovz.ilmizlab.screen.news.NewsContentActivity
+import uz.alijonovz.ilmizlab.utils.Constants
+
+class NewsAdapter(val items: List<NewsModel>) : RecyclerView.Adapter<NewsAdapter.ItemHolder>() {
+
+    inner class ItemHolder(val binding: NewsItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
+        return ItemHolder(
+            NewsItemLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
+    }
+
+    override fun onBindViewHolder(holder: ItemHolder, position: Int) {
+        val item = items[position]
+
+        holder.binding.tvTitle.text = item.title
+        holder.binding.tvCenter.text = item.center_name
+        holder.binding.tvDate.text = item.date
+        holder.binding.tvAddress.text = item.district_name
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(it.context, NewsContentActivity::class.java)
+            intent.putExtra("extra_news", item)
+            it.context.startActivity(intent)
+        }
+
+        Glide.with(holder.binding.root).load(Constants.IMAGE_URL + item.image)
+            .into(holder.binding.imgNew)
+        Glide.with(holder.binding.root).load(Constants.IMAGE_URL + item.center_image)
+            .into(holder.binding.imgCenter)
+    }
+
+    override fun getItemCount(): Int = items.count()
+}
