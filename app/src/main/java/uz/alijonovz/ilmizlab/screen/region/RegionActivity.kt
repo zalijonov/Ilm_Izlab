@@ -17,10 +17,11 @@ import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.region.RegionIdModel
 import uz.alijonovz.ilmizlab.model.region.RegionModel
 import uz.alijonovz.ilmizlab.screen.MainViewModel
+import uz.alijonovz.ilmizlab.utils.PrefUtils
 
 class RegionActivity : AppCompatActivity() {
-    var regionId: Int = 0
-    var districtId: Int = 0
+    var regionId: Int = PrefUtils.getRegion()
+    var districtId: Int = PrefUtils.getDistrictId()
     var regionName: String = "Farg'ona"
     lateinit var binding: ActivityRegionBinding
     lateinit var viewModel: MainViewModel

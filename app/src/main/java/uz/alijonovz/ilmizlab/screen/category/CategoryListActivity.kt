@@ -17,12 +17,13 @@ import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.category.CategoryIdModel
 import uz.alijonovz.ilmizlab.model.category.CategoryModel
 import uz.alijonovz.ilmizlab.screen.MainViewModel
+import uz.alijonovz.ilmizlab.utils.PrefUtils
 
 class CategoryListActivity : AppCompatActivity() {
     lateinit var binding: ActivityCategoryListBinding
     lateinit var viewModel: MainViewModel
-    var categoryId = 0
-    var scienceId = 0
+    var categoryId = PrefUtils.getCategoryId()
+    var scienceId = PrefUtils.getScienceId()
     var categoryName = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

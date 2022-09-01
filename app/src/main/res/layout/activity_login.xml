@@ -54,7 +54,7 @@
             android:layout_marginTop="8dp"
             android:background="@color/bgColor"
             android:hint="+9989XXXXXXX"
-            android:text="+9989"
+            android:text="+998"
             android:inputType="phone"
             android:paddingStart="16dp"
             tools:ignore="RtlSymmetry" />

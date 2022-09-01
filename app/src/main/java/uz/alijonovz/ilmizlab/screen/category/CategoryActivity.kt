@@ -32,10 +32,10 @@ class CategoryActivity : AppCompatActivity() {
     lateinit var binding: ActivityCategoryBinding
     lateinit var viewModel: MainViewModel
     lateinit var item: CategoryModel
-    var regionId = 0
-    var districtId = 0
-    var regionName: String = "Farg'ona viloyati"
-    var sortType = "rating"
+    private var regionId = 0
+    private var districtId = 0
+    private var regionName: String = "Farg'ona viloyati"
+    private var sortType = "rating"
     var id = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +72,7 @@ class CategoryActivity : AppCompatActivity() {
             binding.tvSort.text = binding.sortDistance.text
         }
 
-        binding.sortGroup.setOnCheckedChangeListener { group, checkedId ->
+        binding.sortGroup.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId == R.id.sortRating) {
                 sortType = "rating"
                 binding.tvSort.text = binding.sortRating.text

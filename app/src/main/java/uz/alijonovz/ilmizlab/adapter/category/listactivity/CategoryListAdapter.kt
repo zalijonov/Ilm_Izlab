@@ -8,6 +8,7 @@ import uz.alijonovz.ilmizlab.R
 import uz.alijonovz.ilmizlab.databinding.ListItemLayoutBinding
 import uz.alijonovz.ilmizlab.model.category.CategoryModel
 import uz.alijonovz.ilmizlab.model.category.Science
+import uz.alijonovz.ilmizlab.utils.PrefUtils
 
 interface CategoryListAdapterListener {
     fun onClick(categoryId: Int, scienceId: Int, categoryName: String)
@@ -35,6 +36,11 @@ class CategoryListAdapter(
         val item = items[position]
         holder.binding.tvList.text = item.title
         val categoryName = items[position].title
+        if(item.id == PrefUtils.getCategoryId()){
+            item.checked = true
+            holder.binding.subList.visibility = View.VISIBLE
+            holder.binding.imgArrow.setImageResource(R.drawable.ic_arrow_up)
+        }
         holder.binding.subList.visibility = if (item.checked) View.VISIBLE else View.GONE
         holder.binding.imgArrow.setImageResource(if (holder.binding.subList.visibility == View.GONE) R.drawable.ic_down_drop else R.drawable.ic_arrow_up)
 
@@ -48,6 +54,8 @@ class CategoryListAdapter(
                             }
                         }
                         callback.onClick(item.category_id, item.id, categoryName)
+                        PrefUtils.setCategoryId(item.category_id)
+                        PrefUtils.setScienceId(item.id)
                         item.checked = true
                         notifyDataSetChanged()
                     }
@@ -63,6 +71,7 @@ class CategoryListAdapter(
                 holder.binding.imgArrow.setImageResource(R.drawable.ic_arrow_up)
                 holder.binding.subList.visibility = View.VISIBLE
                 item.checked = true
+                PrefUtils.setCategoryId(item.id)
                 holder.binding.subList.adapter =
                     ScienceListAdapter(item.sciences, object : ScienceListAdapterListener {
                         override fun onClick(item: Science) {
@@ -72,6 +81,8 @@ class CategoryListAdapter(
                                 }
                             }
                             callback.onClick(item.category_id, item.id, categoryName)
+                            PrefUtils.setCategoryId(item.category_id)
+                            PrefUtils.setScienceId(item.id)
                             item.checked = true
                             notifyDataSetChanged()
                         }
