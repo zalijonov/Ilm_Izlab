@@ -8,14 +8,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import uz.alijonovz.ilmizlab.adapter.center.NewsAdapter
-import uz.alijonovz.ilmizlab.api.ApiService
 import uz.alijonovz.ilmizlab.databinding.FragmentNewsCenterBinding
-import uz.alijonovz.ilmizlab.model.BaseResponse
-import uz.alijonovz.ilmizlab.model.center.NewsModel
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 
 class NewsCenterFragment : Fragment() {
@@ -38,10 +32,10 @@ class NewsCenterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.error.observe(requireActivity()){
+        viewModel.error.observe(requireActivity()) {
             Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
         }
-        viewModel.newsData.observe(requireActivity()){
+        viewModel.newsData.observe(requireActivity()) {
             binding.recyclerNews.layoutManager = LinearLayoutManager(requireActivity())
             binding.recyclerNews.adapter = NewsAdapter(it)
         }

@@ -6,16 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.greenrobot.eventbus.EventBus
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import uz.alijonovz.ilmizlab.adapter.region.RegionAdapter
 import uz.alijonovz.ilmizlab.adapter.region.RegionAdapterListener
-import uz.alijonovz.ilmizlab.api.ApiService
 import uz.alijonovz.ilmizlab.databinding.ActivityRegionBinding
-import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.region.RegionIdModel
-import uz.alijonovz.ilmizlab.model.region.RegionModel
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.utils.PrefUtils
 
@@ -34,27 +28,25 @@ class RegionActivity : AppCompatActivity() {
         viewModel.regionData.observe(this) {
             binding.recyclerRegion.layoutManager =
                 LinearLayoutManager(this@RegionActivity)
-            binding.recyclerRegion.adapter = RegionAdapter(
-                it,
-                object : RegionAdapterListener {
-                    override fun onClick(
-                        regionId: Int,
-                        districtId: Int,
-                        regionName: String
-                    ) {
-                        this@RegionActivity.regionId = regionId
-                        this@RegionActivity.districtId = districtId
-                        this@RegionActivity.regionName = regionName
-                    }
+            binding.recyclerRegion.adapter = RegionAdapter(it, object : RegionAdapterListener {
+                override fun onClick(
+                    regionId: Int,
+                    districtId: Int,
+                    regionName: String
+                ) {
+                    this@RegionActivity.regionId = regionId
+                    this@RegionActivity.districtId = districtId
+                    this@RegionActivity.regionName = regionName
+                }
 
-                })
+            })
         }
 
-        viewModel.progress.observe(this){
+        viewModel.progress.observe(this) {
 
         }
 
-        viewModel.error.observe(this){
+        viewModel.error.observe(this) {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
         loadData()
@@ -73,7 +65,7 @@ class RegionActivity : AppCompatActivity() {
         }
     }
 
-    fun loadData(){
+    fun loadData() {
         viewModel.loadRegion()
     }
 }
