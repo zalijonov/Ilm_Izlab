@@ -3,8 +3,8 @@ package uz.alijonovz.ilmizlab.adapter.region
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import uz.alijonovz.ilmizlab.R
+import uz.alijonovz.ilmizlab.adapter.BaseAdapter
 import uz.alijonovz.ilmizlab.databinding.ListItemLayoutBinding
 import uz.alijonovz.ilmizlab.model.region.DistrictModel
 import uz.alijonovz.ilmizlab.model.region.RegionModel
@@ -15,22 +15,16 @@ interface RegionAdapterListener {
 }
 
 class RegionAdapter(val items: List<RegionModel>, val callback: RegionAdapterListener) :
-    RecyclerView.Adapter<RegionAdapter.ItemHolder>() {
+    BaseAdapter<ListItemLayoutBinding>(items) {
 
-    inner class ItemHolder(val binding: ListItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        return ItemHolder(
-            ListItemLayoutBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    override fun getBinding(parent: ViewGroup): ListItemLayoutBinding {
+        return ListItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     }
 
-    override fun onBindViewHolder(holder: ItemHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: BaseAdapter<ListItemLayoutBinding>.ItemHolder<ListItemLayoutBinding>,
+        position: Int
+    ) {
         val item = items[position]
         holder.binding.tvList.text = item.name_uz
         val regionName = items[position].name_uz
@@ -87,5 +81,7 @@ class RegionAdapter(val items: List<RegionModel>, val callback: RegionAdapterLis
         }
     }
 
-    override fun getItemCount(): Int = items.count()
+    override fun initItemData(item: Any) {
+
+    }
 }

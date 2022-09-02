@@ -3,8 +3,8 @@ package uz.alijonovz.ilmizlab.adapter.category.listactivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import uz.alijonovz.ilmizlab.R
+import uz.alijonovz.ilmizlab.adapter.BaseAdapter
 import uz.alijonovz.ilmizlab.databinding.ListItemLayoutBinding
 import uz.alijonovz.ilmizlab.model.category.CategoryModel
 import uz.alijonovz.ilmizlab.model.category.Science
@@ -17,26 +17,20 @@ interface CategoryListAdapterListener {
 class CategoryListAdapter(
     val items: List<CategoryModel>,
     val callback: CategoryListAdapterListener
-) : RecyclerView.Adapter<CategoryListAdapter.ItemHolder>() {
+) : BaseAdapter<ListItemLayoutBinding>(items) {
 
-    inner class ItemHolder(val binding: ListItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        return ItemHolder(
-            ListItemLayoutBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    override fun getBinding(parent: ViewGroup): ListItemLayoutBinding {
+        return ListItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     }
 
-    override fun onBindViewHolder(holder: ItemHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: BaseAdapter<ListItemLayoutBinding>.ItemHolder<ListItemLayoutBinding>,
+        position: Int
+    ) {
         val item = items[position]
         holder.binding.tvList.text = item.title
         val categoryName = items[position].title
-        if(item.id == PrefUtils.getCategoryId()){
+        if (item.id == PrefUtils.getCategoryId()) {
             item.checked = true
             holder.binding.subList.visibility = View.VISIBLE
             holder.binding.imgArrow.setImageResource(R.drawable.ic_arrow_up)
@@ -91,5 +85,8 @@ class CategoryListAdapter(
         }
     }
 
-    override fun getItemCount(): Int = items.count()
+    override fun initItemData(item: Any) {
+
+    }
+
 }

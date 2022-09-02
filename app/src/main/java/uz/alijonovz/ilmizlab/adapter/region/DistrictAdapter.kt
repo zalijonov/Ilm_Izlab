@@ -2,7 +2,7 @@ package uz.alijonovz.ilmizlab.adapter.region
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import uz.alijonovz.ilmizlab.adapter.BaseAdapter
 import uz.alijonovz.ilmizlab.databinding.RadioItemLayoutBinding
 import uz.alijonovz.ilmizlab.model.region.DistrictModel
 import uz.alijonovz.ilmizlab.utils.PrefUtils
@@ -12,24 +12,18 @@ interface DistrictAdapterListener {
 }
 
 class DistrictAdapter(val items: List<DistrictModel>, val callback: DistrictAdapterListener) :
-    RecyclerView.Adapter<DistrictAdapter.ItemHolder>() {
+    BaseAdapter<RadioItemLayoutBinding>(items) {
 
-    inner class ItemHolder(val binding: RadioItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        return ItemHolder(
-            RadioItemLayoutBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    override fun getBinding(parent: ViewGroup): RadioItemLayoutBinding {
+        return RadioItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     }
 
-    override fun onBindViewHolder(holder: ItemHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: BaseAdapter<RadioItemLayoutBinding>.ItemHolder<RadioItemLayoutBinding>,
+        position: Int
+    ) {
         val item = items[position]
-        if(item.id == PrefUtils.getDistrictId()){
+        if (item.id == PrefUtils.getDistrictId()) {
             item.checked = true
             holder.binding.radioDistrict.isChecked = item.checked
         }
@@ -43,5 +37,7 @@ class DistrictAdapter(val items: List<DistrictModel>, val callback: DistrictAdap
         }
     }
 
-    override fun getItemCount(): Int = items.count()
+    override fun initItemData(item: Any) {
+
+    }
 }

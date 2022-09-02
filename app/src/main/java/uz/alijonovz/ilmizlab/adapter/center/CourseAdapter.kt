@@ -3,28 +3,21 @@ package uz.alijonovz.ilmizlab.adapter.center
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import uz.alijonovz.ilmizlab.adapter.BaseAdapter
 import uz.alijonovz.ilmizlab.databinding.CourseItemLayoutBinding
 import uz.alijonovz.ilmizlab.model.center.CourseModel
 import uz.alijonovz.ilmizlab.screen.center.TeachersActivity
 
-class CourseAdapter(var items: List<CourseModel>) :
-    RecyclerView.Adapter<CourseAdapter.ItemHolder>() {
+class CourseAdapter(var items: List<CourseModel>) : BaseAdapter<CourseItemLayoutBinding>(items) {
 
-    inner class ItemHolder(val binding: CourseItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        return ItemHolder(
-            CourseItemLayoutBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    override fun getBinding(parent: ViewGroup): CourseItemLayoutBinding {
+        return CourseItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     }
 
-    override fun onBindViewHolder(holder: ItemHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: BaseAdapter<CourseItemLayoutBinding>.ItemHolder<CourseItemLayoutBinding>,
+        position: Int
+    ) {
         val item = items[position]
 
         holder.binding.tvCourse.text = item.name
@@ -37,5 +30,7 @@ class CourseAdapter(var items: List<CourseModel>) :
         }
     }
 
-    override fun getItemCount(): Int = items.count()
+    override fun initItemData(item: Any) {
+
+    }
 }

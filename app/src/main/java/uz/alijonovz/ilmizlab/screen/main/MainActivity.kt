@@ -30,6 +30,7 @@ import uz.alijonovz.ilmizlab.api.ApiService
 import uz.alijonovz.ilmizlab.databinding.ActivityMainBinding
 import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.login.GetTokenModel
+import uz.alijonovz.ilmizlab.screen.BaseActivity
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.screen.auth.LoginActivity
 import uz.alijonovz.ilmizlab.screen.main.home.HomeFragment
@@ -40,7 +41,7 @@ import uz.alijonovz.ilmizlab.screen.main.subscribed.SubscribedFragment
 import uz.alijonovz.ilmizlab.utils.Constants
 import uz.alijonovz.ilmizlab.utils.PrefUtils
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<ActivityMainBinding>() {
     private val homeFragment = HomeFragment.newInstance()
     private val searchFragment = SearchFragment.newInstance()
     private val mapsFragment = MapsFragment()
@@ -48,15 +49,14 @@ class MainActivity : AppCompatActivity() {
     private val subscribeFragment = SubscribedFragment.newInstance()
     var currentFragment: Fragment = homeFragment
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    lateinit var binding: ActivityMainBinding
     lateinit var viewModel: MainViewModel
     private lateinit var toggle: ActionBarDrawerToggle
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun getViewBinding(): ActivityMainBinding {
+        return ActivityMainBinding.inflate(layoutInflater)
+    }
 
+    override fun initView() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.error.observe(this){
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.tokenData.observe(this){
             binding.navigation.drUserName.text = it.fullname
             binding.navigation.drUserPhone.text = "+" + it.phone
-            Glide.with(this@MainActivity)
+            Glide.with(this)
                 .load(Constants.IMAGE_URL + it.avatar)
                 .into(binding.navigation.drUserImg)
         }
@@ -259,5 +259,13 @@ class MainActivity : AppCompatActivity() {
             return true
         }
         return false
+    }
+
+    override fun loadData() {
+
+    }
+
+    override fun updateData() {
+
     }
 }

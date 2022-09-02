@@ -14,6 +14,7 @@ import uz.alijonovz.ilmizlab.api.ApiService
 import uz.alijonovz.ilmizlab.databinding.ActivityLoginBinding
 import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.login.*
+import uz.alijonovz.ilmizlab.screen.BaseActivity
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.screen.main.MainActivity
 import uz.alijonovz.ilmizlab.utils.PrefUtils
@@ -25,17 +26,17 @@ enum class LoginState {
     CONFIRM
 }
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     var state = LoginState.CHECK_PHONE
-    lateinit var binding: ActivityLoginBinding
     var phone: String = ""
     var password: String = ""
     lateinit var viewModel: MainViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun getViewBinding(): ActivityLoginBinding {
+        return ActivityLoginBinding.inflate(layoutInflater)
+    }
+    override fun initView() {
+
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.error.observe(this) {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
@@ -212,5 +213,13 @@ class LoginActivity : AppCompatActivity() {
                 }
 
             })
+    }
+
+    override fun loadData() {
+
+    }
+
+    override fun updateData() {
+
     }
 }

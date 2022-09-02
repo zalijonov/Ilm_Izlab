@@ -2,29 +2,22 @@ package uz.alijonovz.ilmizlab.adapter.center
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import uz.alijonovz.ilmizlab.adapter.BaseAdapter
 import uz.alijonovz.ilmizlab.databinding.RatingItemLayoutBinding
 import uz.alijonovz.ilmizlab.model.center.RatingModel
 import uz.alijonovz.ilmizlab.utils.Constants
 
-class RatingAdapter(val items: List<RatingModel>) :
-    RecyclerView.Adapter<RatingAdapter.ItemHolder>() {
+class RatingAdapter(val items: List<RatingModel>) : BaseAdapter<RatingItemLayoutBinding>(items) {
 
-    inner class ItemHolder(val binding: RatingItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        return ItemHolder(
-            RatingItemLayoutBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    override fun getBinding(parent: ViewGroup): RatingItemLayoutBinding {
+        return RatingItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     }
 
-    override fun onBindViewHolder(holder: ItemHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: BaseAdapter<RatingItemLayoutBinding>.ItemHolder<RatingItemLayoutBinding>,
+        position: Int
+    ) {
         val item = items[position]
 
         holder.binding.tvComment.text = item.comment
@@ -36,5 +29,7 @@ class RatingAdapter(val items: List<RatingModel>) :
             .into(holder.binding.imgAvatar)
     }
 
-    override fun getItemCount(): Int = items.count()
+    override fun initItemData(item: Any) {
+
+    }
 }

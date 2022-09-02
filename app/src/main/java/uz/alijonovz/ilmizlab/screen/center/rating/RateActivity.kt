@@ -14,20 +14,22 @@ import uz.alijonovz.ilmizlab.databinding.ActivityRateBinding
 import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.center.CenterModel
 import uz.alijonovz.ilmizlab.model.center.request.MakeRatingModel
+import uz.alijonovz.ilmizlab.screen.BaseActivity
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.screen.auth.LoginActivity
 import uz.alijonovz.ilmizlab.utils.PrefUtils
 
-class RateActivity : AppCompatActivity() {
+class RateActivity : BaseActivity<ActivityRateBinding>() {
     lateinit var item: CenterModel
-    lateinit var binding: ActivityRateBinding
     lateinit var viewModel: MainViewModel
     var rating = 5.0
     var comment = ""
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityRateBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+
+    override fun getViewBinding(): ActivityRateBinding {
+        return ActivityRateBinding.inflate(layoutInflater)
+    }
+    override fun initView() {
+
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         item = intent.getSerializableExtra("extra_center_rate") as CenterModel
 
@@ -68,6 +70,14 @@ class RateActivity : AppCompatActivity() {
         binding.back.setOnClickListener {
             finish()
         }
+    }
+
+    override fun loadData() {
+
+    }
+
+    override fun updateData() {
+
     }
 
 }

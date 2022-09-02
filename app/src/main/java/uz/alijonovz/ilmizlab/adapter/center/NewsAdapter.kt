@@ -3,29 +3,23 @@ package uz.alijonovz.ilmizlab.adapter.center
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import uz.alijonovz.ilmizlab.adapter.BaseAdapter
 import uz.alijonovz.ilmizlab.databinding.NewsItemLayoutBinding
 import uz.alijonovz.ilmizlab.model.center.NewsModel
 import uz.alijonovz.ilmizlab.screen.news.NewsContentActivity
 import uz.alijonovz.ilmizlab.utils.Constants
 
-class NewsAdapter(val items: List<NewsModel>) : RecyclerView.Adapter<NewsAdapter.ItemHolder>() {
+class NewsAdapter(val items: List<NewsModel>) : BaseAdapter<NewsItemLayoutBinding>(items) {
 
-    inner class ItemHolder(val binding: NewsItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        return ItemHolder(
-            NewsItemLayoutBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    override fun getBinding(parent: ViewGroup): NewsItemLayoutBinding {
+        return NewsItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     }
 
-    override fun onBindViewHolder(holder: ItemHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: BaseAdapter<NewsItemLayoutBinding>.ItemHolder<NewsItemLayoutBinding>,
+        position: Int
+    ) {
         val item = items[position]
 
         holder.binding.tvTitle.text = item.title
@@ -45,5 +39,7 @@ class NewsAdapter(val items: List<NewsModel>) : RecyclerView.Adapter<NewsAdapter
             .into(holder.binding.imgCenter)
     }
 
-    override fun getItemCount(): Int = items.count()
+    override fun initItemData(item: Any) {
+
+    }
 }

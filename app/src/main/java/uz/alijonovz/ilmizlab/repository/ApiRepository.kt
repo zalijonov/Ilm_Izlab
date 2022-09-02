@@ -14,6 +14,7 @@ import uz.alijonovz.ilmizlab.model.OfferModel
 import uz.alijonovz.ilmizlab.model.category.CategoryModel
 import uz.alijonovz.ilmizlab.model.center.*
 import uz.alijonovz.ilmizlab.model.center.request.MakeRatingModel
+import uz.alijonovz.ilmizlab.model.center.request.Subscribe
 import uz.alijonovz.ilmizlab.model.login.*
 import uz.alijonovz.ilmizlab.model.region.RegionModel
 import uz.alijonovz.ilmizlab.model.request.GetCenterByIdRequest
@@ -450,6 +451,26 @@ class ApiRepository {
                     error.value = t.localizedMessage
                 }
 
+            })
+    }
+
+    fun setSubscriber(id: Int, error: MutableLiveData<String>, progress: MutableLiveData<Boolean>) {
+        ApiService.apiClient().setSubscriber(Subscribe(id))
+            .enqueue(object : Callback<BaseResponse<String>> {
+                override fun onResponse(
+                    call: Call<BaseResponse<String>>,
+                    response: Response<BaseResponse<String>>
+                ) {
+                    if(response.isSuccessful){
+                        error.value = response.body()!!.message
+                    } else {
+                        error.value = response.message()
+                    }
+                }
+
+                override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
+                    error.value = t.localizedMessage
+                }
             })
     }
 }

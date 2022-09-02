@@ -25,11 +25,11 @@ import uz.alijonovz.ilmizlab.model.category.Science
 import uz.alijonovz.ilmizlab.model.center.CenterModel
 import uz.alijonovz.ilmizlab.model.region.RegionIdModel
 import uz.alijonovz.ilmizlab.model.request.GetCenterByIdRequest
+import uz.alijonovz.ilmizlab.screen.BaseActivity
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.screen.region.RegionActivity
 
-class CategoryActivity : AppCompatActivity() {
-    lateinit var binding: ActivityCategoryBinding
+class CategoryActivity : BaseActivity<ActivityCategoryBinding>() {
     lateinit var viewModel: MainViewModel
     lateinit var item: CategoryModel
     private var regionId = 0
@@ -37,10 +37,12 @@ class CategoryActivity : AppCompatActivity() {
     private var regionName: String = "Farg'ona viloyati"
     private var sortType = "rating"
     var id = 0
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityCategoryBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+
+    override fun getViewBinding(): ActivityCategoryBinding {
+        return ActivityCategoryBinding.inflate(layoutInflater)
+    }
+    override fun initView() {
+
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.error.observe(this) {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
@@ -107,10 +109,9 @@ class CategoryActivity : AppCompatActivity() {
         binding.cardRegion.setOnClickListener {
             startActivity(Intent(this, RegionActivity::class.java))
         }
-        loadData()
     }
 
-    fun loadData(){
+    override fun loadData(){
         viewModel.loadCenters(GetCenterByIdRequest(
             region_id = regionId,
             district_id = districtId,
@@ -138,6 +139,10 @@ class CategoryActivity : AppCompatActivity() {
         this.regionId = address.region_id
         this.districtId = address.district_id
         this.regionName = address.region_name
+    }
+
+    override fun updateData() {
+
     }
 
 }

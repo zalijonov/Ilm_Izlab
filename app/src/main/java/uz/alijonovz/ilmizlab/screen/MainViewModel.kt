@@ -152,4 +152,8 @@ class MainViewModel : ViewModel() {
     fun confirmUser(phone: String, password: String, sms_code: String){
         repository.confirmUser(phone, password, sms_code, _error, _progress, _tokenData)
     }
+
+    fun setSubscriber(id: Int){
+        repository.setSubscriber(id, _error, _progress)
+    }
 }

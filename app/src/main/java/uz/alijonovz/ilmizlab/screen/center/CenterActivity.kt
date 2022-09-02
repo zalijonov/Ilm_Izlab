@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,6 +23,8 @@ import uz.alijonovz.ilmizlab.databinding.ActivityCenterBinding
 import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.center.CenterModel
 import uz.alijonovz.ilmizlab.model.center.request.Subscribe
+import uz.alijonovz.ilmizlab.screen.BaseActivity
+import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.screen.center.courses.CourseFragment
 import uz.alijonovz.ilmizlab.screen.center.news.NewsCenterFragment
 import uz.alijonovz.ilmizlab.screen.center.rating.RateActivity
@@ -30,19 +33,25 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.util.*
 
-class CenterActivity : AppCompatActivity() {
-    lateinit var binding: ActivityCenterBinding
+class CenterActivity : BaseActivity<ActivityCenterBinding>() {
     lateinit var item: CenterModel
+    lateinit var viewModel: MainViewModel
     var fragmentCourse = CourseFragment.newInstance()
     var fragmentNews = NewsCenterFragment.newInstance()
     var fragmentRating = RatingFragment.newInstance()
     var currentFragment: Fragment = fragmentCourse
 
+    override fun getViewBinding(): ActivityCenterBinding {
+        return ActivityCenterBinding.inflate(layoutInflater)
+    }
+
     @SuppressLint("SetTextI18n")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityCenterBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun initView() {
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel.error.observe(this){
+            binding.tvMessage.text = it
+            binding.layoutSubscribe.visibility = View.VISIBLE
+        }
         item = intent.getSerializableExtra("center_extra") as CenterModel
 
         var info = "\uD83C\uDFE2 Markaz nomi: ${item.name} \n" +
@@ -152,7 +161,7 @@ class CenterActivity : AppCompatActivity() {
         }
 
         binding.btnFollow.setOnClickListener {
-            setSubscriber()
+            viewModel.setSubscriber(item.id)
 //            checkSubscriber(item.id)
         }
 
@@ -187,45 +196,13 @@ class CenterActivity : AppCompatActivity() {
         binding.viewPager.autoScroll(2000)
     }
 
-    private fun setSubscriber() {
-        ApiService.apiClient().setSubscriber(Subscribe(item.id))
-            .enqueue(object : Callback<BaseResponse<String>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<String>>,
-                    response: Response<BaseResponse<String>>
-                ) {
-                    binding.tvMessage.text = response.body()!!.message
-                    binding.layoutSubscribe.visibility = View.VISIBLE
-                }
-
-                override fun onFailure(call: Call<BaseResponse<String>>, t: Throwable) {
-                    binding.tvMessage.text = t.localizedMessage
-                    binding.layoutSubscribe.visibility = View.VISIBLE
-                }
-            })
+    override fun loadData() {
+//
     }
 
-//    fun checkSubscriber(centerId: Int){
-//        ApiService.apiClient().checkSubscriber(centerId).enqueue(object: Callback<BaseResponse<Boolean>>{
-//            override fun onResponse(
-//                call: Call<BaseResponse<Boolean>>,
-//                response: Response<BaseResponse<Boolean>>
-//            ) {
-////                if(response.body()?.data){
-////                    binding.btnFollow.setTextColor(Color.GRAY)
-////                    binding.btnFollow.text = "Obunani to'xtatish"
-////                } else{
-////                    binding.btnFollow.setTextColor(ContextCompat.getColor(this@CenterActivity, R.color.primaryColor))
-////                    binding.btnFollow.text = "Obuna bo'lish"
-////                }
-//            }
+    override fun updateData() {
 //
-//            override fun onFailure(call: Call<BaseResponse<Boolean>>, t: Throwable) {
-//
-//            }
-//
-//        })
-//    }
+    }
 
 
 }

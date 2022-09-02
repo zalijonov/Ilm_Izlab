@@ -4,8 +4,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import uz.alijonovz.ilmizlab.adapter.BaseAdapter
 import uz.alijonovz.ilmizlab.databinding.CenterItemLayoutBinding
 import uz.alijonovz.ilmizlab.model.center.CenterModel
 import uz.alijonovz.ilmizlab.screen.center.CenterActivity
@@ -13,23 +13,16 @@ import uz.alijonovz.ilmizlab.utils.Constants
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
-class CenterAdapter(val items: List<CenterModel>) :
-    RecyclerView.Adapter<CenterAdapter.ItemHolder>() {
+class CenterAdapter(val items: List<CenterModel>) : BaseAdapter<CenterItemLayoutBinding>(items) {
 
-    inner class ItemHolder(val binding: CenterItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        return ItemHolder(
-            CenterItemLayoutBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    override fun getBinding(parent: ViewGroup): CenterItemLayoutBinding {
+        return CenterItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     }
 
-    override fun onBindViewHolder(holder: ItemHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: BaseAdapter<CenterItemLayoutBinding>.ItemHolder<CenterItemLayoutBinding>,
+        position: Int
+    ) {
         val item = items[position]
         var courseLine = ""
 
@@ -42,7 +35,7 @@ class CenterAdapter(val items: List<CenterModel>) :
             courseLine += it.name + ", "
         }
 
-        if(courseLine.isNullOrEmpty()){
+        if (courseLine.isNullOrEmpty()) {
             holder.binding.courseList.visibility = View.GONE
         } else {
             holder.binding.courseList.text = courseLine
@@ -63,5 +56,8 @@ class CenterAdapter(val items: List<CenterModel>) :
             .into(holder.binding.mainImg)
     }
 
-    override fun getItemCount(): Int = items.count()
+    override fun initItemData(item: Any) {
+
+    }
+
 }

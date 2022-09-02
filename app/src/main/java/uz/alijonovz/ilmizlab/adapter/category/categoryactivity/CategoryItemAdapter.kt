@@ -4,9 +4,9 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import uz.alijonovz.ilmizlab.R
+import uz.alijonovz.ilmizlab.adapter.BaseAdapter
 import uz.alijonovz.ilmizlab.databinding.CategoryItemLayoutBinding
 import uz.alijonovz.ilmizlab.model.category.Science
 import uz.alijonovz.ilmizlab.utils.Constants
@@ -16,22 +16,16 @@ interface CategoryItemCallback {
 }
 
 class CategoryItemAdapter(val items: List<Science>, val callback: CategoryItemCallback) :
-    RecyclerView.Adapter<CategoryItemAdapter.ItemHolder>() {
+    BaseAdapter<CategoryItemLayoutBinding>(items) {
 
-    inner class ItemHolder(val binding: CategoryItemLayoutBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        return ItemHolder(
-            CategoryItemLayoutBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+    override fun getBinding(parent: ViewGroup): CategoryItemLayoutBinding {
+        return CategoryItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     }
 
-    override fun onBindViewHolder(holder: ItemHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: BaseAdapter<CategoryItemLayoutBinding>.ItemHolder<CategoryItemLayoutBinding>,
+        position: Int
+    ) {
         val item = items[position]
 
         holder.binding.root.setOnClickListener {
@@ -73,5 +67,7 @@ class CategoryItemAdapter(val items: List<Science>, val callback: CategoryItemCa
         holder.binding.tvTitle.text = item.title
     }
 
-    override fun getItemCount(): Int = items.count()
+    override fun initItemData(item: Any) {
+
+    }
 }
