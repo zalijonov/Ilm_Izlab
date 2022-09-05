@@ -21,8 +21,8 @@ class CategoryListActivity : BaseActivity<ActivityCategoryListBinding>() {
     override fun getViewBinding(): ActivityCategoryListBinding {
         return ActivityCategoryListBinding.inflate(layoutInflater)
     }
-    override fun initView() {
 
+    override fun initView() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.error.observe(this) {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
@@ -42,7 +42,6 @@ class CategoryListActivity : BaseActivity<ActivityCategoryListBinding>() {
                     }
                 })
         }
-
 
         binding.btnSelect.setOnClickListener {
             val category = CategoryIdModel(

@@ -43,9 +43,7 @@ class NewsCenterFragment : Fragment() {
     }
 
     companion object {
-
         @JvmStatic
-        fun newInstance() =
-            NewsCenterFragment()
+        fun newInstance() = NewsCenterFragment()
     }
 }

@@ -18,8 +18,8 @@ abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
 
         binding = getViewBinding()
         setContentView(binding.root)
-        loadData()
         initView()
+        loadData()
         updateData()
     }
 

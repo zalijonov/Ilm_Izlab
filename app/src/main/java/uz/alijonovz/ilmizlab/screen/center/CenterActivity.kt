@@ -54,7 +54,7 @@ class CenterActivity : BaseActivity<ActivityCenterBinding>() {
         }
         item = intent.getSerializableExtra("center_extra") as CenterModel
 
-        var info = "\uD83C\uDFE2 Markaz nomi: ${item.name} \n" +
+        val info = "\uD83C\uDFE2 Markaz nomi: ${item.name} \n" +
                 "⭐️ Qo'yilgan bsholar: ${item.rating.subSequence(0, 3)}\n" +
                 "\uD83D\uDC65 Obunachilar soni: ${item.subsribers_count}\n" +
                 "\uD83D\uDCB0 O'rtacha oylik to'lov: ${item.monthly_payment_min}-${item.monthly_payment_max}\n" +
@@ -64,15 +64,15 @@ class CenterActivity : BaseActivity<ActivityCenterBinding>() {
                 "© ILM-IZLAB\n" +
                 "\uD83D\uDCF2 Ilovani yuklab olish: http://ilm-izlab.uz"
 
-        var bundleCourse = Bundle()
+        val bundleCourse = Bundle()
         bundleCourse.putInt("extra_course", item.id)
         fragmentCourse.arguments = bundleCourse
 
-        var bundleNews = Bundle()
+        val bundleNews = Bundle()
         bundleNews.putInt("extra_news", item.id)
         fragmentNews.arguments = bundleNews
 
-        var bundleRating = Bundle()
+        val bundleRating = Bundle()
         bundleRating.putInt("extra_rating", item.id)
         fragmentRating.arguments = bundleRating
 
@@ -88,19 +88,19 @@ class CenterActivity : BaseActivity<ActivityCenterBinding>() {
         }
 
         binding.btnRate.setOnClickListener {
-            var intent = Intent(this, RateActivity::class.java)
+            val intent = Intent(this, RateActivity::class.java)
             intent.putExtra("extra_center_rate", item)
             startActivity(intent)
         }
 
         binding.btnMap.setOnClickListener {
-            var uri = String.format(
+            val uri = String.format(
                 Locale.ENGLISH,
                 "geo:%f,%f?q=${item.latitude.toDouble()},${item.longitude.toDouble()}",
                 item.latitude.toDouble(),
                 item.longitude.toDouble()
             )
-            var intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri + Uri.encode(item.name)))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri + Uri.encode(item.name)))
             intent.setPackage("com.google.android.apps.maps")
             intent.resolveActivity(packageManager)?.let {
                 startActivity(intent)
@@ -108,7 +108,7 @@ class CenterActivity : BaseActivity<ActivityCenterBinding>() {
         }
 
         binding.btnCall.setOnClickListener {
-            var intent = Intent(Intent.ACTION_DIAL)
+            val intent = Intent(Intent.ACTION_DIAL)
             intent.data = Uri.parse("tel:${item.phone}")
             startActivity(intent)
         }
@@ -162,7 +162,6 @@ class CenterActivity : BaseActivity<ActivityCenterBinding>() {
 
         binding.btnFollow.setOnClickListener {
             viewModel.setSubscriber(item.id)
-//            checkSubscriber(item.id)
         }
 
         binding.btnOk.setOnClickListener {
@@ -176,12 +175,10 @@ class CenterActivity : BaseActivity<ActivityCenterBinding>() {
             finish()
         }
 
-//        checkSubscriber(item.id)
-
         item.images.add(0, item.main_image)
-        var df = DecimalFormat("#.#")
+        val df = DecimalFormat("#.#")
         df.roundingMode = RoundingMode.UP
-        var s = item.rating.toDoubleOrNull() ?: 0.0
+        val s = item.rating.toDoubleOrNull() ?: 0.0
         binding.tvTitle.text = item.name
         binding.tvTitle1.text = item.name
         binding.tvRating.text = "${item.rating_count} ta - ${df.format(s)}/o'rtacha"
