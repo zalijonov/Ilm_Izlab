@@ -32,7 +32,6 @@ class GenericTextWatcher(private val currentView: View, private val nextView: Vi
             R.id.ed1 -> if (text.length == 1) nextView!!.requestFocus()
             R.id.ed2 -> if (text.length == 1) nextView!!.requestFocus()
             R.id.ed3 -> if (text.length == 1) nextView!!.requestFocus()
-            //You can use EditText4 same as above to hide the keyboard
         }
     }
 
@@ -41,7 +40,8 @@ class GenericTextWatcher(private val currentView: View, private val nextView: Vi
         arg1: Int,
         arg2: Int,
         arg3: Int
-    ) { // TODO Auto-generated method stub
+    ) {
+
     }
 
     override fun onTextChanged(
@@ -49,7 +49,8 @@ class GenericTextWatcher(private val currentView: View, private val nextView: Vi
         arg1: Int,
         arg2: Int,
         arg3: Int
-    ) { // TODO Auto-generated method stub
+    ) {
+
     }
 
 }
