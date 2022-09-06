@@ -1,8 +1,6 @@
 package uz.alijonovz.ilmizlab.screen.region
 
-import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.greenrobot.eventbus.EventBus
@@ -10,19 +8,22 @@ import uz.alijonovz.ilmizlab.adapter.region.RegionAdapter
 import uz.alijonovz.ilmizlab.adapter.region.RegionAdapterListener
 import uz.alijonovz.ilmizlab.databinding.ActivityRegionBinding
 import uz.alijonovz.ilmizlab.model.region.RegionIdModel
+import uz.alijonovz.ilmizlab.screen.BaseActivity
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.utils.PrefUtils
 
-class RegionActivity : AppCompatActivity() {
+class RegionActivity : BaseActivity<ActivityRegionBinding>() {
     var regionId: Int = PrefUtils.getRegion()
     var districtId: Int = PrefUtils.getDistrictId()
     var regionName: String = "Farg'ona"
-    lateinit var binding: ActivityRegionBinding
     lateinit var viewModel: MainViewModel
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityRegionBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+
+    override fun getViewBinding(): ActivityRegionBinding {
+        return ActivityRegionBinding.inflate(layoutInflater)
+    }
+
+    override fun initView() {
+
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         viewModel.regionData.observe(this) {
@@ -49,7 +50,6 @@ class RegionActivity : AppCompatActivity() {
         viewModel.error.observe(this) {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
-        loadData()
 
         binding.btnSelect.setOnClickListener {
             val districtModel = RegionIdModel(
@@ -65,7 +65,13 @@ class RegionActivity : AppCompatActivity() {
         }
     }
 
-    fun loadData() {
+    override fun loadData() {
         viewModel.loadRegion()
     }
+
+    override fun updateData() {
+
+    }
+
+
 }

@@ -1,8 +1,6 @@
 package uz.alijonovz.ilmizlab.screen.news
 
-import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import uz.alijonovz.ilmizlab.databinding.ActivityNewsContentBinding
@@ -18,6 +16,7 @@ class NewsContentActivity : BaseActivity<ActivityNewsContentBinding>() {
     override fun getViewBinding(): ActivityNewsContentBinding {
         return ActivityNewsContentBinding.inflate(layoutInflater)
     }
+
     override fun initView() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
