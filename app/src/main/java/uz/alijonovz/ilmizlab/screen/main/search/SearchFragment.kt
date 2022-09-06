@@ -17,14 +17,14 @@ import uz.alijonovz.ilmizlab.databinding.FragmentSearchBinding
 import uz.alijonovz.ilmizlab.model.category.CategoryIdModel
 import uz.alijonovz.ilmizlab.model.region.RegionIdModel
 import uz.alijonovz.ilmizlab.model.request.GetCenterByIdRequest
+import uz.alijonovz.ilmizlab.screen.BaseFragment
 import uz.alijonovz.ilmizlab.screen.category.CategoryListActivity
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.screen.region.RegionActivity
 import uz.alijonovz.ilmizlab.utils.Constants
 
-class SearchFragment : Fragment() {
+class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     lateinit var viewModel: MainViewModel
-    lateinit var binding: FragmentSearchBinding
     var regionId: Int = 0
     var districtId: Int = 0
     var regionName: String = "Farg'ona viloyati"
@@ -39,19 +39,17 @@ class SearchFragment : Fragment() {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentSearchBinding.inflate(inflater, container, false)
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentSearchBinding {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this)
         }
-        return binding.root
+        return FragmentSearchBinding.inflate(inflater, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView() {
         viewModel.centerData.observe(requireActivity()) {
             binding.recyclerCenter.layoutManager = GridLayoutManager(requireActivity(), 2)
             binding.recyclerCenter.adapter = CenterAdapter(it)
@@ -64,7 +62,6 @@ class SearchFragment : Fragment() {
         binding.swipe.setOnRefreshListener {
             loadData()
         }
-        loadData()
 
         binding.tvRegion.text = regionName
         binding.tvScience.text = categoryName
@@ -138,7 +135,7 @@ class SearchFragment : Fragment() {
         this.categoryName = category.category_name
     }
 
-    private fun loadData() {
+    override fun loadData() {
         viewModel.loadCenters(
             GetCenterByIdRequest(
                 region_id = regionId,
@@ -151,6 +148,10 @@ class SearchFragment : Fragment() {
                 latitude = Constants.currentLatitude
             )
         )
+    }
+
+    override fun loadUpdate() {
+
     }
 
     companion object {

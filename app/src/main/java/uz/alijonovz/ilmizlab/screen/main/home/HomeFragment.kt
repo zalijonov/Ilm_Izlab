@@ -2,10 +2,8 @@ package uz.alijonovz.ilmizlab.screen.main.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,11 +13,11 @@ import uz.alijonovz.ilmizlab.adapter.viewpager.ViewPagerAdapter
 import uz.alijonovz.ilmizlab.adapter.viewpager.autoScroll
 import uz.alijonovz.ilmizlab.databinding.FragmentHomeBinding
 import uz.alijonovz.ilmizlab.model.request.GetCenterByIdRequest
+import uz.alijonovz.ilmizlab.screen.BaseFragment
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.utils.Constants
 
-class HomeFragment : Fragment() {
-    lateinit var binding: FragmentHomeBinding
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,17 +25,14 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
-        // Inflate the layout for this fragment
-        return binding.root
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentHomeBinding {
+        return FragmentHomeBinding.inflate(inflater, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView() {
         viewModel.error.observe(requireActivity()) {
             Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
         }
@@ -78,10 +73,10 @@ class HomeFragment : Fragment() {
         binding.swipe.setOnRefreshListener {
             loadData()
         }
-        loadData()
+
     }
 
-    private fun loadData() {
+    override fun loadData() {
         viewModel.loadCategory()
         viewModel.loadCenters(
             GetCenterByIdRequest(
@@ -91,6 +86,10 @@ class HomeFragment : Fragment() {
         )
         viewModel.loadCloseCenters()
         viewModel.loadOffers()
+    }
+
+    override fun loadUpdate() {
+
     }
 
     companion object {

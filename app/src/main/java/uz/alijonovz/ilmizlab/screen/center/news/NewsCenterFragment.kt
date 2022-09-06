@@ -10,11 +10,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import uz.alijonovz.ilmizlab.adapter.center.NewsAdapter
 import uz.alijonovz.ilmizlab.databinding.FragmentNewsCenterBinding
+import uz.alijonovz.ilmizlab.screen.BaseFragment
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 
-class NewsCenterFragment : Fragment() {
+class NewsCenterFragment : BaseFragment<FragmentNewsCenterBinding>() {
     var item = 0
-    lateinit var binding: FragmentNewsCenterBinding
     lateinit var viewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,16 +22,16 @@ class NewsCenterFragment : Fragment() {
         item = arguments?.getInt("extra_news")!!
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentNewsCenterBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentNewsCenterBinding {
+        return FragmentNewsCenterBinding.inflate(inflater, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+
+
+    override fun initView() {
         viewModel.error.observe(requireActivity()) {
             Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
         }
@@ -39,7 +39,15 @@ class NewsCenterFragment : Fragment() {
             binding.recyclerNews.layoutManager = LinearLayoutManager(requireActivity())
             binding.recyclerNews.adapter = NewsAdapter(it)
         }
+
+    }
+
+    override fun loadData() {
         viewModel.loadNews(item)
+    }
+
+    override fun loadUpdate() {
+
     }
 
     companion object {

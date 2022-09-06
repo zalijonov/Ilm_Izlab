@@ -2,24 +2,16 @@ package uz.alijonovz.ilmizlab.screen.center.courses
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import uz.alijonovz.ilmizlab.adapter.center.CourseAdapter
-import uz.alijonovz.ilmizlab.api.ApiService
 import uz.alijonovz.ilmizlab.databinding.FragmentCourseBinding
-import uz.alijonovz.ilmizlab.model.BaseResponse
-import uz.alijonovz.ilmizlab.model.center.CourseModel
+import uz.alijonovz.ilmizlab.screen.BaseFragment
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 
-class CourseFragment : Fragment() {
-    lateinit var binding: FragmentCourseBinding
+class CourseFragment : BaseFragment<FragmentCourseBinding>() {
     lateinit var viewModel: MainViewModel
     var item: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,17 +20,14 @@ class CourseFragment : Fragment() {
         item = arguments?.getInt("extra_course")!!
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentCourseBinding.inflate(inflater, container, false)
-
-        return binding.root
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentCourseBinding {
+        return FragmentCourseBinding.inflate(inflater, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView() {
         viewModel.error.observe(requireActivity()) {
             Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
         }
@@ -47,7 +36,15 @@ class CourseFragment : Fragment() {
             binding.recyclerCourse.layoutManager = LinearLayoutManager(requireActivity())
             binding.recyclerCourse.adapter = CourseAdapter(it)
         }
+
+    }
+
+    override fun loadData() {
         viewModel.loadCourses(item)
+    }
+
+    override fun loadUpdate() {
+
     }
 
     companion object {

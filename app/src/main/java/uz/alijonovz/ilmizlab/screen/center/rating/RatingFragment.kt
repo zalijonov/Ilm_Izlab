@@ -16,11 +16,11 @@ import uz.alijonovz.ilmizlab.api.ApiService
 import uz.alijonovz.ilmizlab.databinding.FragmentRatingBinding
 import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.center.RatingModel
+import uz.alijonovz.ilmizlab.screen.BaseFragment
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 
-class RatingFragment : Fragment() {
+class RatingFragment : BaseFragment<FragmentRatingBinding>() {
     var item = 0
-    lateinit var binding: FragmentRatingBinding
     lateinit var viewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,16 +28,14 @@ class RatingFragment : Fragment() {
         item = arguments?.getInt("extra_rating")!!
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentRatingBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentRatingBinding {
+        return FragmentRatingBinding.inflate(inflater, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView() {
         viewModel.error.observe(requireActivity()) {
             Toast.makeText(requireActivity(), it, Toast.LENGTH_SHORT).show()
         }
@@ -45,7 +43,15 @@ class RatingFragment : Fragment() {
             binding.recyclerComment.layoutManager = LinearLayoutManager(requireActivity())
             binding.recyclerComment.adapter = RatingAdapter(it)
         }
+
+    }
+
+    override fun loadData() {
         viewModel.loadComments(item)
+    }
+
+    override fun loadUpdate() {
+
     }
 
     companion object {

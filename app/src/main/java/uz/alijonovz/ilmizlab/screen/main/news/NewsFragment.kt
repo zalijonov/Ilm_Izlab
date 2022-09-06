@@ -9,26 +9,24 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import uz.alijonovz.ilmizlab.adapter.center.NewsAdapter
 import uz.alijonovz.ilmizlab.databinding.FragmentNewsBinding
+import uz.alijonovz.ilmizlab.screen.BaseFragment
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 
-class NewsFragment : Fragment() {
+class NewsFragment : BaseFragment<FragmentNewsBinding>() {
     lateinit var viewModel: MainViewModel
-    lateinit var binding: FragmentNewsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentNewsBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentNewsBinding {
+        return FragmentNewsBinding.inflate(inflater, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView() {
         viewModel.newsData.observe(requireActivity()) {
             binding.recyclerNews.layoutManager = LinearLayoutManager(requireActivity())
             binding.recyclerNews.adapter = NewsAdapter(it)
@@ -41,11 +39,14 @@ class NewsFragment : Fragment() {
         binding.swipe.setOnRefreshListener {
             loadData()
         }
-        loadData()
     }
 
-    private fun loadData() {
+    override fun loadData() {
         viewModel.loadNews()
+    }
+
+    override fun loadUpdate() {
+
     }
 
     companion object {

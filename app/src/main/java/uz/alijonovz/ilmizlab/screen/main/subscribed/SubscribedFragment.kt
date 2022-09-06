@@ -11,29 +11,26 @@ import uz.alijonovz.ilmizlab.adapter.center.CenterAdapter
 import uz.alijonovz.ilmizlab.databinding.FragmentSubscribedBinding
 import uz.alijonovz.ilmizlab.model.center.CenterModel
 import uz.alijonovz.ilmizlab.model.request.GetCenterByIdRequest
+import uz.alijonovz.ilmizlab.screen.BaseFragment
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.utils.PrefUtils
 
-class SubscribedFragment : Fragment() {
+class SubscribedFragment : BaseFragment<FragmentSubscribedBinding>() {
     lateinit var viewModel: MainViewModel
-    lateinit var binding: FragmentSubscribedBinding
     var checkSubs = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentSubscribedBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentSubscribedBinding {
+        return FragmentSubscribedBinding.inflate(inflater, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun initView() {
         viewModel.progress.observe(requireActivity()){
             binding.swipe.isRefreshing = it
         }
@@ -49,7 +46,6 @@ class SubscribedFragment : Fragment() {
             binding.recSubscribed.layoutManager = GridLayoutManager(requireActivity(), 2)
             binding.recSubscribed.adapter = CenterAdapter(list)
         }
-        loadData()
 
         binding.swipe.setOnRefreshListener {
             loadData()
@@ -72,29 +68,17 @@ class SubscribedFragment : Fragment() {
                 binding.recSubscribed.layoutManager = GridLayoutManager(requireActivity(), 2)
                 binding.recSubscribed.adapter = CenterAdapter(list)
             }
-            loadData()
         }
     }
 
-    fun loadData(){
+
+    override fun loadData(){
         viewModel.loadCenters(GetCenterByIdRequest())
     }
 
-//    fun checkSubscriber(centerId: Int) {
-//        ApiService.apiClient().checkSubscriber(centerId).enqueue(object :
-//            Callback<BaseResponse<Boolean>> {
-//            override fun onResponse(
-//                call: Call<BaseResponse<Boolean>>,
-//                response: Response<BaseResponse<Boolean>>
-//            ) {
-////                checkSubs = response.body()?.data ?: false
-//            }
-//
-//            override fun onFailure(call: Call<BaseResponse<Boolean>>, t: Throwable) {
-//                Toast.makeText(requireActivity(), t.localizedMessage, Toast.LENGTH_SHORT).show()
-//            }
-//        })
-//    }
+    override fun loadUpdate() {
+
+    }
 
     companion object {
         @JvmStatic
@@ -103,4 +87,4 @@ class SubscribedFragment : Fragment() {
     }
 
 
-        }
+}

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,17 +23,17 @@ import uz.alijonovz.ilmizlab.model.category.CategoryIdModel
 import uz.alijonovz.ilmizlab.model.center.CenterModel
 import uz.alijonovz.ilmizlab.model.region.RegionIdModel
 import uz.alijonovz.ilmizlab.model.request.GetCenterByIdRequest
+import uz.alijonovz.ilmizlab.screen.BaseFragment
+import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.screen.category.CategoryListActivity
 import uz.alijonovz.ilmizlab.screen.center.CenterActivity
-import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.screen.region.RegionActivity
 import uz.alijonovz.ilmizlab.utils.Constants
 import java.util.*
 
-class MapsFragment : Fragment() {
+class MapsFragment : BaseFragment<FragmentMapsBinding>() {
     var index = 0
     lateinit var viewModel: MainViewModel
-    lateinit var binding: FragmentMapsBinding
     private var centerList = listOf<CenterModel>()
     var regionId: Int = 0
     var districtId: Int = 0
@@ -125,7 +124,7 @@ class MapsFragment : Fragment() {
                     latitude = centerList[i].latitude.toDouble()
                 }
             }
-            if(it.title == "Current Position"){
+            if (it.title == "Current Position") {
                 binding.cardInfo.visibility = View.GONE
             } else {
                 binding.cardInfo.visibility = View.VISIBLE
@@ -145,28 +144,23 @@ class MapsFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        container: ViewGroup?
+    ): FragmentMapsBinding {
         loadData()
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this)
         }
-        binding = FragmentMapsBinding.inflate(inflater, container, false)
-        return binding.root
+        return FragmentMapsBinding.inflate(inflater, container, false)
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView() {
         viewModel.centerData.observe(requireActivity()) {
             centerList = it
             val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
             mapFragment?.getMapAsync(callback)
         }
-        loadData()
 
         binding.btnMore.setOnClickListener {
             var intent = Intent(requireActivity(), CenterActivity::class.java)
@@ -239,7 +233,7 @@ class MapsFragment : Fragment() {
         loadData()
     }
 
-    private fun loadData() {
+    override fun loadData() {
         viewModel.loadCenters(
             GetCenterByIdRequest(
                 limit = 0,
@@ -251,6 +245,10 @@ class MapsFragment : Fragment() {
                 latitude = Constants.currentLatitude
             )
         )
+
+    }
+
+    override fun loadUpdate() {
 
     }
 }
