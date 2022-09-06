@@ -32,19 +32,18 @@ import uz.alijonovz.ilmizlab.utils.Constants
 import java.util.*
 
 class MapsFragment : BaseFragment<FragmentMapsBinding>() {
-    var index = 0
+    private var index = 0
     lateinit var viewModel: MainViewModel
     private var centerList = listOf<CenterModel>()
-    var regionId: Int = 0
-    var districtId: Int = 0
-    var regionName: String = "Farg'ona viloyati"
-    var search = ""
-    var categoryId: Int = 0
-    var scienceId: Int = 0
-    var categoryName: String = "Hammasi"
-    var longitude: Double = 0.0
-    var latitude: Double = 0.0
-    internal var mCurrLocationMarker: Marker? = null
+    private var regionId: Int = 0
+    private var districtId: Int = 0
+    private var regionName: String = "Farg'ona viloyati"
+    private var categoryId: Int = 0
+    private var scienceId: Int = 0
+    private var categoryName: String = "Hammasi"
+    private var longitude: Double = 0.0
+    private var latitude: Double = 0.0
+    private var mCurrLocationMarker: Marker? = null
     private val callback = OnMapReadyCallback { googleMap ->
         /**
          * Manipulates the map once available.
