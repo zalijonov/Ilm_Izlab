@@ -2,20 +2,12 @@ package uz.alijonovz.ilmizlab.screen.center.rating
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import uz.alijonovz.ilmizlab.adapter.center.RatingAdapter
-import uz.alijonovz.ilmizlab.api.ApiService
 import uz.alijonovz.ilmizlab.databinding.FragmentRatingBinding
-import uz.alijonovz.ilmizlab.model.BaseResponse
-import uz.alijonovz.ilmizlab.model.center.RatingModel
 import uz.alijonovz.ilmizlab.screen.BaseFragment
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 

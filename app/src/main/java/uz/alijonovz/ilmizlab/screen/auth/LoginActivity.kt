@@ -1,11 +1,9 @@
 package uz.alijonovz.ilmizlab.screen.auth
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import retrofit2.Call
 import retrofit2.Callback
@@ -13,7 +11,8 @@ import retrofit2.Response
 import uz.alijonovz.ilmizlab.api.ApiService
 import uz.alijonovz.ilmizlab.databinding.ActivityLoginBinding
 import uz.alijonovz.ilmizlab.model.BaseResponse
-import uz.alijonovz.ilmizlab.model.login.*
+import uz.alijonovz.ilmizlab.model.login.GetTokenModel
+import uz.alijonovz.ilmizlab.model.login.RegistrationRequest
 import uz.alijonovz.ilmizlab.screen.BaseActivity
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.screen.main.MainActivity
@@ -35,6 +34,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
     override fun getViewBinding(): ActivityLoginBinding {
         return ActivityLoginBinding.inflate(layoutInflater)
     }
+
     override fun initView() {
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)

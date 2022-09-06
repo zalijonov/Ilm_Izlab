@@ -1,15 +1,14 @@
 package uz.alijonovz.ilmizlab.api
 
 import retrofit2.Call
-import retrofit2.http.*
-import uz.alijonovz.ilmizlab.model.center.TeacherModel
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.OfferModel
 import uz.alijonovz.ilmizlab.model.category.CategoryModel
-import uz.alijonovz.ilmizlab.model.center.CenterModel
-import uz.alijonovz.ilmizlab.model.center.CourseModel
-import uz.alijonovz.ilmizlab.model.center.NewsModel
-import uz.alijonovz.ilmizlab.model.center.RatingModel
+import uz.alijonovz.ilmizlab.model.center.*
 import uz.alijonovz.ilmizlab.model.center.request.MakeRatingModel
 import uz.alijonovz.ilmizlab.model.center.request.Subscribe
 import uz.alijonovz.ilmizlab.model.login.*
@@ -20,6 +19,7 @@ interface Api {
 
     @POST("make_rating")
     fun makeRating(@Body request: MakeRatingModel): Call<BaseResponse<Any>>
+
     @GET("categories")
     fun getCategory(): Call<BaseResponse<List<CategoryModel>>>
 
@@ -57,11 +57,13 @@ interface Api {
 
     @POST("check_phone")
     fun checkPhone(@Body request: CheckPhoneRequest): Call<BaseResponse<CheckResult>>
+
     @POST("send_confirm_code")
     fun sendConfirmCode(@Body sms_code: ConfirmRequest): Call<BaseResponse<CheckResult>>
 
     @POST("login")
     fun login(@Body request: LoginModel): Call<BaseResponse<GetTokenModel>>
+
     @POST("registration")
     fun registration(@Body request: RegistrationRequest): Call<BaseResponse<GetTokenModel>>
 

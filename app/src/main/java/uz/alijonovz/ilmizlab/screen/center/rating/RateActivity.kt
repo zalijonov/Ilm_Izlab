@@ -1,19 +1,11 @@
 package uz.alijonovz.ilmizlab.screen.center.rating
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import uz.alijonovz.ilmizlab.api.ApiService
 import uz.alijonovz.ilmizlab.databinding.ActivityRateBinding
-import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.center.CenterModel
-import uz.alijonovz.ilmizlab.model.center.request.MakeRatingModel
 import uz.alijonovz.ilmizlab.screen.BaseActivity
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.screen.auth.LoginActivity
@@ -28,6 +20,7 @@ class RateActivity : BaseActivity<ActivityRateBinding>() {
     override fun getViewBinding(): ActivityRateBinding {
         return ActivityRateBinding.inflate(layoutInflater)
     }
+
     override fun initView() {
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
@@ -35,7 +28,7 @@ class RateActivity : BaseActivity<ActivityRateBinding>() {
 
         binding.tvTitle.text = item.name
 
-        if(PrefUtils.getToken().isNullOrEmpty()){
+        if (PrefUtils.getToken().isNullOrEmpty()) {
             binding.btnRate.visibility = View.GONE
             binding.comment.visibility = View.VISIBLE
             binding.btnSign.visibility = View.VISIBLE
@@ -49,14 +42,14 @@ class RateActivity : BaseActivity<ActivityRateBinding>() {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
-        viewModel.progress.observe(this){
+        viewModel.progress.observe(this) {
 
         }
-        viewModel.ratingData.observe(this){
+        viewModel.ratingData.observe(this) {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
 
-        viewModel.error.observe(this){
+        viewModel.error.observe(this) {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
 

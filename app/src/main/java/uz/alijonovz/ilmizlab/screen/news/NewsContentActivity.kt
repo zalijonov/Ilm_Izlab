@@ -5,12 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import uz.alijonovz.ilmizlab.api.ApiService
 import uz.alijonovz.ilmizlab.databinding.ActivityNewsContentBinding
-import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.center.NewsModel
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.utils.Constants
@@ -26,15 +21,15 @@ class NewsContentActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        viewModel.error.observe(this){
+        viewModel.error.observe(this) {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
 
-        viewModel.progress.observe(this){
+        viewModel.progress.observe(this) {
 
         }
 
-        viewModel.newsContentData.observe(this){
+        viewModel.newsContentData.observe(this) {
             val data = it
 
             binding.tvContent.text = data.content
@@ -50,7 +45,7 @@ class NewsContentActivity : AppCompatActivity() {
         loadData()
     }
 
-    fun loadData(){
+    fun loadData() {
         viewModel.loadNewsContent(item.id)
     }
 }

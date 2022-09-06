@@ -1,28 +1,20 @@
 package uz.alijonovz.ilmizlab.screen.category
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import uz.alijonovz.ilmizlab.R
 import uz.alijonovz.ilmizlab.adapter.category.categoryactivity.CategoryItemAdapter
 import uz.alijonovz.ilmizlab.adapter.category.categoryactivity.CategoryItemCallback
 import uz.alijonovz.ilmizlab.adapter.center.CenterAdapter
-import uz.alijonovz.ilmizlab.api.ApiService
 import uz.alijonovz.ilmizlab.databinding.ActivityCategoryBinding
-import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.category.CategoryModel
 import uz.alijonovz.ilmizlab.model.category.Science
-import uz.alijonovz.ilmizlab.model.center.CenterModel
 import uz.alijonovz.ilmizlab.model.region.RegionIdModel
 import uz.alijonovz.ilmizlab.model.request.GetCenterByIdRequest
 import uz.alijonovz.ilmizlab.screen.BaseActivity
@@ -41,6 +33,7 @@ class CategoryActivity : BaseActivity<ActivityCategoryBinding>() {
     override fun getViewBinding(): ActivityCategoryBinding {
         return ActivityCategoryBinding.inflate(layoutInflater)
     }
+
     override fun initView() {
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
@@ -53,7 +46,7 @@ class CategoryActivity : BaseActivity<ActivityCategoryBinding>() {
             binding.recyclerCenter.adapter = CenterAdapter(it)
         }
 
-        viewModel.progress.observe(this){
+        viewModel.progress.observe(this) {
             binding.swipe.isRefreshing = it
         }
 
@@ -111,14 +104,16 @@ class CategoryActivity : BaseActivity<ActivityCategoryBinding>() {
         }
     }
 
-    override fun loadData(){
-        viewModel.loadCenters(GetCenterByIdRequest(
-            region_id = regionId,
-            district_id = districtId,
-            category_id = item.id,
-            science_id = id,
-            sort = sortType
-        ))
+    override fun loadData() {
+        viewModel.loadCenters(
+            GetCenterByIdRequest(
+                region_id = regionId,
+                district_id = districtId,
+                category_id = item.id,
+                science_id = id,
+                sort = sortType
+            )
+        )
     }
 
     override fun onResume() {

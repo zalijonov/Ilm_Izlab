@@ -4,7 +4,6 @@ package uz.alijonovz.ilmizlab.adapter.category.categoryactivity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import uz.alijonovz.ilmizlab.adapter.BaseAdapter
 import uz.alijonovz.ilmizlab.databinding.CategoryItemLayoutBinding

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import uz.alijonovz.ilmizlab.adapter.center.CenterAdapter
@@ -31,7 +30,7 @@ class SubscribedFragment : BaseFragment<FragmentSubscribedBinding>() {
     }
 
     override fun initView() {
-        viewModel.progress.observe(requireActivity()){
+        viewModel.progress.observe(requireActivity()) {
             binding.swipe.isRefreshing = it
         }
 
@@ -40,7 +39,7 @@ class SubscribedFragment : BaseFragment<FragmentSubscribedBinding>() {
             it.forEach { center ->
                 checkSubs = false
 //                checkSubscriber(center.id)
-                if(checkSubs)
+                if (checkSubs)
                     list += center
             }
             binding.recSubscribed.layoutManager = GridLayoutManager(requireActivity(), 2)
@@ -51,10 +50,10 @@ class SubscribedFragment : BaseFragment<FragmentSubscribedBinding>() {
             loadData()
         }
 
-        if(PrefUtils.getToken().isNullOrEmpty()){
+        if (PrefUtils.getToken().isNullOrEmpty()) {
             binding.logPlease.visibility = View.VISIBLE
             binding.recSubscribed.visibility = View.GONE
-        } else{
+        } else {
             binding.logPlease.visibility = View.GONE
             binding.recSubscribed.visibility = View.VISIBLE
             viewModel.centerData.observe(requireActivity()) {
@@ -62,7 +61,7 @@ class SubscribedFragment : BaseFragment<FragmentSubscribedBinding>() {
                 it.forEach { center ->
                     checkSubs = false
 //                    checkSubscriber(center.id)
-                    if(checkSubs)
+                    if (checkSubs)
                         list += center
                 }
                 binding.recSubscribed.layoutManager = GridLayoutManager(requireActivity(), 2)
@@ -72,7 +71,7 @@ class SubscribedFragment : BaseFragment<FragmentSubscribedBinding>() {
     }
 
 
-    override fun loadData(){
+    override fun loadData() {
         viewModel.loadCenters(GetCenterByIdRequest())
     }
 

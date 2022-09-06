@@ -2,10 +2,8 @@ package uz.alijonovz.ilmizlab.screen.center.news
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import uz.alijonovz.ilmizlab.adapter.center.NewsAdapter
@@ -28,7 +26,6 @@ class NewsCenterFragment : BaseFragment<FragmentNewsCenterBinding>() {
     ): FragmentNewsCenterBinding {
         return FragmentNewsCenterBinding.inflate(inflater, container, false)
     }
-
 
 
     override fun initView() {

@@ -2,27 +2,19 @@ package uz.alijonovz.ilmizlab.screen.center
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import uz.alijonovz.ilmizlab.R
 import uz.alijonovz.ilmizlab.adapter.viewpager.ViewPagerAdapterC
 import uz.alijonovz.ilmizlab.adapter.viewpager.autoScroll
-import uz.alijonovz.ilmizlab.api.ApiService
 import uz.alijonovz.ilmizlab.databinding.ActivityCenterBinding
-import uz.alijonovz.ilmizlab.model.BaseResponse
 import uz.alijonovz.ilmizlab.model.center.CenterModel
-import uz.alijonovz.ilmizlab.model.center.request.Subscribe
 import uz.alijonovz.ilmizlab.screen.BaseActivity
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.screen.center.courses.CourseFragment
@@ -48,7 +40,7 @@ class CenterActivity : BaseActivity<ActivityCenterBinding>() {
     @SuppressLint("SetTextI18n")
     override fun initView() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        viewModel.error.observe(this){
+        viewModel.error.observe(this) {
             binding.tvMessage.text = it
             binding.layoutSubscribe.visibility = View.VISIBLE
         }

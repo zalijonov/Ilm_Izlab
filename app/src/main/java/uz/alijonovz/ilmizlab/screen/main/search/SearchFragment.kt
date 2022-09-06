@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import org.greenrobot.eventbus.EventBus
@@ -18,8 +17,8 @@ import uz.alijonovz.ilmizlab.model.category.CategoryIdModel
 import uz.alijonovz.ilmizlab.model.region.RegionIdModel
 import uz.alijonovz.ilmizlab.model.request.GetCenterByIdRequest
 import uz.alijonovz.ilmizlab.screen.BaseFragment
-import uz.alijonovz.ilmizlab.screen.category.CategoryListActivity
 import uz.alijonovz.ilmizlab.screen.MainViewModel
+import uz.alijonovz.ilmizlab.screen.category.CategoryListActivity
 import uz.alijonovz.ilmizlab.screen.region.RegionActivity
 import uz.alijonovz.ilmizlab.utils.Constants
 
@@ -55,7 +54,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             binding.recyclerCenter.adapter = CenterAdapter(it)
         }
 
-        viewModel.progress.observe(requireActivity()){
+        viewModel.progress.observe(requireActivity()) {
             binding.swipe.isRefreshing = it
         }
 
@@ -117,7 +116,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         super.onResume()
         loadData()
         binding.tvRegion.text = regionName
-        binding.tvScience.text = if(categoryName.isEmpty()) "Hammasi" else categoryName
+        binding.tvScience.text = if (categoryName.isEmpty()) "Hammasi" else categoryName
     }
 
     @Subscribe

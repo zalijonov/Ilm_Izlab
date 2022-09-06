@@ -1,9 +1,5 @@
 package uz.alijonovz.ilmizlab.repository
 
-import android.content.Intent
-import android.view.View
-import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,8 +14,6 @@ import uz.alijonovz.ilmizlab.model.center.request.Subscribe
 import uz.alijonovz.ilmizlab.model.login.*
 import uz.alijonovz.ilmizlab.model.region.RegionModel
 import uz.alijonovz.ilmizlab.model.request.GetCenterByIdRequest
-import uz.alijonovz.ilmizlab.screen.main.MainActivity
-import uz.alijonovz.ilmizlab.utils.PrefUtils
 
 class ApiRepository {
     fun loadCategory(
@@ -461,7 +455,7 @@ class ApiRepository {
                     call: Call<BaseResponse<String>>,
                     response: Response<BaseResponse<String>>
                 ) {
-                    if(response.isSuccessful){
+                    if (response.isSuccessful) {
                         error.value = response.body()!!.message
                     } else {
                         error.value = response.message()

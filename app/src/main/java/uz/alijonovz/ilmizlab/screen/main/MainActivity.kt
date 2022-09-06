@@ -7,13 +7,10 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
 import android.net.Uri
-import android.os.Bundle
 import android.provider.Settings
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -22,14 +19,8 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.orhanobut.hawk.Hawk
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import uz.alijonovz.ilmizlab.R
-import uz.alijonovz.ilmizlab.api.ApiService
 import uz.alijonovz.ilmizlab.databinding.ActivityMainBinding
-import uz.alijonovz.ilmizlab.model.BaseResponse
-import uz.alijonovz.ilmizlab.model.login.GetTokenModel
 import uz.alijonovz.ilmizlab.screen.BaseActivity
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.screen.auth.LoginActivity
@@ -58,10 +49,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initView() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        viewModel.error.observe(this){
+        viewModel.error.observe(this) {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }
-        viewModel.tokenData.observe(this){
+        viewModel.tokenData.observe(this) {
             binding.navigation.drUserName.text = it.fullname
             binding.navigation.drUserPhone.text = "+" + it.phone
             Glide.with(this)
@@ -173,10 +164,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 super.onBackPressed()
             }
 
-            setNegativeButton("Yo'q"){_, _ ->
+            setNegativeButton("Yo'q") { _, _ ->
                 // if user press no, then return the activity
-                Toast.makeText(this@MainActivity, "Rahmat!",
-                    Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this@MainActivity, "Rahmat!",
+                    Toast.LENGTH_LONG
+                ).show()
             }
 
             setCancelable(true)

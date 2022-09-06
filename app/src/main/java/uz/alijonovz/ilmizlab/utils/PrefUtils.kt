@@ -12,7 +12,7 @@ object PrefUtils {
     private const val PREF_CATEGORY_ID = "pref_category_id"
     private const val PREF_SCIENCE_ID = "pref_science_id"
 
-    fun setCategoryId(value: Int){
+    fun setCategoryId(value: Int) {
         Hawk.put(PREF_CATEGORY_ID, value)
     }
 
@@ -20,35 +20,35 @@ object PrefUtils {
         return Hawk.get(PREF_CATEGORY_ID, 0)
     }
 
-    fun setScienceId(value: Int){
+    fun setScienceId(value: Int) {
         Hawk.put(PREF_SCIENCE_ID, value)
     }
 
-    fun getScienceId(): Int{
+    fun getScienceId(): Int {
         return Hawk.get(PREF_SCIENCE_ID, 0)
     }
 
-    fun setRegionId(value: Int){
+    fun setRegionId(value: Int) {
         Hawk.put(PREF_REGION_ID, value)
     }
 
-    fun getRegion(): Int{
+    fun getRegion(): Int {
         return Hawk.get(PREF_REGION_ID, 0)
     }
 
-    fun setDistrictId(value: Int){
+    fun setDistrictId(value: Int) {
         Hawk.put(PREF_DISTRICT_ID, value)
     }
 
-    fun getDistrictId(): Int{
+    fun getDistrictId(): Int {
         return Hawk.get(PREF_DISTRICT_ID, 0)
     }
 
-    fun setToken(value: String){
+    fun setToken(value: String) {
         Hawk.put(PREF_TOKEN, value)
     }
 
-    fun getToken(): String{
+    fun getToken(): String {
         return Hawk.get(PREF_TOKEN, "")
     }
 

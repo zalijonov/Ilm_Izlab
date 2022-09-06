@@ -67,15 +67,15 @@ class MainViewModel : ViewModel() {
 
     private var _commentData = MutableLiveData<List<RatingModel>>()
     val commentData: LiveData<List<RatingModel>>
-    get() = _commentData
+        get() = _commentData
 
     private var _courseData = MutableLiveData<List<CourseModel>>()
     val courseData: LiveData<List<CourseModel>>
-    get() = _courseData
+        get() = _courseData
 
     private var _phoneCheckData = MutableLiveData<CheckResult>()
     val phoneCheckData: LiveData<CheckResult>
-    get() = _phoneCheckData
+        get() = _phoneCheckData
 
     fun loadNews() {
         repository.loadNews(_error, _progress, _newsData)
@@ -125,35 +125,35 @@ class MainViewModel : ViewModel() {
         repository.loadTeachers(id, _error, _teacherData)
     }
 
-    fun loadComments(id: Int){
+    fun loadComments(id: Int) {
         repository.loadComments(id, _error, _commentData)
     }
 
-    fun loadNews(id: Int){
+    fun loadNews(id: Int) {
         repository.loadNews(id, _error, _newsData)
     }
 
-    fun loadCourses(id: Int){
+    fun loadCourses(id: Int) {
         repository.loadCourses(id, _error, _courseData)
     }
 
-    fun checkPhone(phone: String){
+    fun checkPhone(phone: String) {
         repository.checkPhone(phone, _error, _progress, _phoneCheckData)
     }
 
-    fun login(phone: String, password: String){
+    fun login(phone: String, password: String) {
         repository.login(phone, password, _error, _progress, _tokenData)
     }
 
-    fun sendCode(smsCode: String){
+    fun sendCode(smsCode: String) {
         repository.sendCode(smsCode, _error, _progress, _phoneCheckData)
     }
 
-    fun confirmUser(phone: String, password: String, sms_code: String){
+    fun confirmUser(phone: String, password: String, sms_code: String) {
         repository.confirmUser(phone, password, sms_code, _error, _progress, _tokenData)
     }
 
-    fun setSubscriber(id: Int){
+    fun setSubscriber(id: Int) {
         repository.setSubscriber(id, _error, _progress)
     }
 }

@@ -2,9 +2,7 @@ package uz.alijonovz.ilmizlab.screen.main.news
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import uz.alijonovz.ilmizlab.adapter.center.NewsAdapter
@@ -32,7 +30,7 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
             binding.recyclerNews.adapter = NewsAdapter(it)
         }
 
-        viewModel.progress.observe(requireActivity()){
+        viewModel.progress.observe(requireActivity()) {
             binding.swipe.isRefreshing = it
         }
 
