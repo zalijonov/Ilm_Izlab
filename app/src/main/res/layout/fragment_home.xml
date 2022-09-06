@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".screen.main.home.HomeFragment"
-    android:background="@color/bgColor">
+    android:background="@color/bgColor"
+    tools:context=".screen.main.home.HomeFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -30,54 +33,54 @@
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_centerInParent="true"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center" />
 
                 </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Kategoriyalar"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
+                    android:layout_marginHorizontal="8dp"
                     android:layout_marginTop="16dp"
+                    android:text="Kategoriyalar"
                     android:textColor="@color/black"
-                    android:layout_marginHorizontal="8dp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerCategory"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Top markazlar"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
+                    android:layout_marginHorizontal="8dp"
                     android:layout_marginTop="16dp"
+                    android:text="Top markazlar"
                     android:textColor="@color/black"
-                    android:layout_marginHorizontal="8dp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerTopCenter"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Yaqin atrofdagi markazlar"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
+                    android:layout_marginHorizontal="8dp"
                     android:layout_marginTop="16dp"
+                    android:text="Yaqin atrofdagi markazlar"
                     android:textColor="@color/black"
-                    android:layout_marginHorizontal="8dp"/>
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerCloseCenter"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

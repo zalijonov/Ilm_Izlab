@@ -11,6 +11,7 @@
         android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -77,8 +78,8 @@
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="4dp"
-                            android:maxLines="1"
                             android:ellipsize="end"
+                            android:maxLines="1"
                             android:text="Lorem Ipsum"
                             android:textColor="@color/white"
                             android:textSize="14sp"
@@ -114,8 +115,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="4dp"
-                            android:maxLines="1"
                             android:ellipsize="end"
+                            android:maxLines="1"
                             android:text="Lorem Ipsum"
                             android:textColor="@color/white"
                             android:textSize="14sp"
@@ -185,17 +186,17 @@
 
                 <RadioGroup
                     android:id="@+id/sortGroup"
+                    style="@style/Widget.AppCompat.CompoundButton.RadioButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.AppCompat.CompoundButton.RadioButton">
+                    android:layout_height="wrap_content">
 
                     <RadioButton
                         android:id="@+id/sortRating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:checked="true"
                         android:text="Eng saralari"
                         android:textColor="@color/black"
-                        android:checked="true"
                         android:textSize="16sp" />
 
                     <RadioButton

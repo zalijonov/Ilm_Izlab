@@ -11,42 +11,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            android:orientation="horizontal"
-            android:background="@color/button_color">
+            android:background="@color/button_color"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/btnBack"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_baseline_arrow_back_24"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
+                android:src="@drawable/ic_baseline_arrow_back_24"
                 app:tint="@color/white" />
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginHorizontal="8dp"
                 android:layout_weight="1"
+                android:gravity="left|center_vertical"
                 android:text="Tizimga kirish"
                 android:textColor="@color/white"
-                android:textStyle="bold"
                 android:textSize="18sp"
-                android:layout_marginHorizontal="8dp"
-                android:gravity="left|center_vertical"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/tvPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Telefon raqam"
-            android:textColor="@color/black"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:text="Telefon raqam"
+            android:textColor="@color/black" />
+
         <EditText
             android:id="@+id/edPhone"
             android:layout_width="match_parent"
@@ -54,18 +56,20 @@
             android:layout_marginTop="8dp"
             android:background="@color/bgColor"
             android:hint="+9989XXXXXXX"
-            android:text="+998"
             android:inputType="phone"
             android:paddingStart="16dp"
+            android:text="+998"
             tools:ignore="RtlSymmetry" />
+
         <TextView
             android:id="@+id/tvName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ismingiz"
-            android:textColor="@color/black"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:text="Ismingiz"
+            android:textColor="@color/black" />
+
         <EditText
             android:id="@+id/edName"
             android:layout_width="match_parent"
@@ -76,14 +80,16 @@
             android:inputType="phone"
             android:paddingStart="16dp"
             tools:ignore="RtlSymmetry, SpeakableTextPresentCheck" />
+
         <TextView
             android:id="@+id/tvPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Parol"
-            android:textColor="@color/black"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:text="Parol"
+            android:textColor="@color/black" />
+
         <EditText
             android:id="@+id/edPassword"
             android:layout_width="match_parent"
@@ -94,14 +100,16 @@
             android:inputType="textPassword"
             android:paddingStart="16dp"
             tools:ignore="RtlSymmetry, SpeakableTextPresentCheck" />
+
         <TextView
             android:id="@+id/tvRePass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Parolni tasdiqlash"
-            android:textColor="@color/black"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:text="Parolni tasdiqlash"
+            android:textColor="@color/black" />
+
         <EditText
             android:id="@+id/edConfirmPassword"
             android:layout_width="match_parent"
@@ -112,6 +120,7 @@
             android:inputType="textPassword"
             android:paddingStart="16dp"
             tools:ignore="RtlSymmetry, SpeakableTextPresentCheck" />
+
         <TextView
             android:id="@+id/tvSmsCode"
             android:layout_width="match_parent"
@@ -201,22 +210,23 @@
             android:id="@+id/btnSign"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/button_color"
             android:layout_margin="8dp"
-            android:text="Kirish"/>
+            android:backgroundTint="@color/button_color"
+            android:text="Kirish" />
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/lyProgress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="#80000000">
+        android:background="#80000000"
+        android:visibility="gone">
+
         <ProgressBar
             android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
     </FrameLayout>
 
 

@@ -6,10 +6,10 @@
     android:background="@color/bgColor"
     tools:context=".screen.center.news.NewsCenterFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerNews"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerNews"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp" />
 
 </FrameLayout>

@@ -8,10 +8,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -47,16 +49,15 @@
                     android:src="@drawable/ic_down_drop" />
 
             </LinearLayout>
+
             <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/subList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                android:id="@+id/subList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         </LinearLayout>
     </ScrollView>
-
-
 
 
 </LinearLayout>

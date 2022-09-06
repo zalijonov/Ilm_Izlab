@@ -3,18 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen.main.news.NewsFragment"
-    android:background="@color/bgColor">
+    android:background="@color/bgColor"
+    tools:context=".screen.main.news.NewsFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerNews"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="4dp" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 

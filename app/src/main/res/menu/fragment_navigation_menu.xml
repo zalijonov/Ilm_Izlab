@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Home"
+    <item
         android:id="@+id/home"
-        android:icon="@drawable/ic_home"/>
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
 
     <item
-        android:title="Search"
         android:id="@+id/search"
-        android:icon="@drawable/ic_search"/>
+        android:icon="@drawable/ic_search"
+        android:title="Search" />
 
     <item
-        android:title="Map"
         android:id="@+id/map"
-        android:icon="@drawable/ic_map"/>
+        android:icon="@drawable/ic_map"
+        android:title="Map" />
 
     <item
-        android:title="News"
         android:id="@+id/news"
-        android:icon="@drawable/ic_stories"/>
+        android:icon="@drawable/ic_stories"
+        android:title="News" />
 
     <item
-        android:title="Subscribed"
         android:id="@+id/subscribed"
-        android:icon="@drawable/ic_wifi_signal"/>
+        android:icon="@drawable/ic_wifi_signal"
+        android:title="Subscribed" />
 
 
 </menu>

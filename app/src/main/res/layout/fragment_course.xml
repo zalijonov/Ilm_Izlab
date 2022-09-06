@@ -6,12 +6,11 @@
     android:background="@color/bgColor"
     tools:context=".screen.center.courses.CourseFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerCourse"
-            android:layout_width="match_parent"
-            android:layout_marginTop="4dp"
-            android:layout_height="wrap_content"/>
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCourse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp" />
 
 
 </FrameLayout>

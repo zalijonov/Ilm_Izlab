@@ -130,8 +130,8 @@
             android:backgroundTint="@color/button_color"
             android:text="BAHOLASH"
             android:textColor="@color/white"
-            app:rippleColor="@color/button_color"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:rippleColor="@color/button_color" />
 
         <TextView
             android:layout_width="match_parent"

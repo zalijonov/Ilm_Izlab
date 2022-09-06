@@ -69,6 +69,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/actionBarColor">
+
         <include
             android:id="@+id/navigation"
             layout="@layout/nav_bar"
