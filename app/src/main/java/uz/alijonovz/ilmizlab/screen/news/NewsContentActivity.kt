@@ -42,7 +42,6 @@ class NewsContentActivity : AppCompatActivity() {
         }
 
         item = intent.getSerializableExtra("extra_news") as NewsModel
-        loadData()
     }
 
     fun loadData() {
