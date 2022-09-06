@@ -38,7 +38,6 @@ class SubscribedFragment : BaseFragment<FragmentSubscribedBinding>() {
             val list = mutableListOf<CenterModel>()
             it.forEach { center ->
                 checkSubs = false
-//                checkSubscriber(center.id)
                 if (checkSubs)
                     list += center
             }
@@ -60,7 +59,6 @@ class SubscribedFragment : BaseFragment<FragmentSubscribedBinding>() {
                 val list = mutableListOf<CenterModel>()
                 it.forEach { center ->
                     checkSubs = false
-//                    checkSubscriber(center.id)
                     if (checkSubs)
                         list += center
                 }
