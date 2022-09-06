@@ -15,35 +15,13 @@ import uz.alijonovz.ilmizlab.model.login.*
 import uz.alijonovz.ilmizlab.model.region.RegionModel
 import uz.alijonovz.ilmizlab.model.request.GetCenterByIdRequest
 
-class ApiRepository {
+class ApiRepository : BaseRepository() {
     fun loadCategory(
         error: MutableLiveData<String>,
         progress: MutableLiveData<Boolean>,
         success: MutableLiveData<List<CategoryModel>>
     ) {
-        progress.value = true
-        ApiService.apiClient().getCategory()
-            .enqueue(object : Callback<BaseResponse<List<CategoryModel>>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<List<CategoryModel>>>,
-                    response: Response<BaseResponse<List<CategoryModel>>>
-                ) {
-                    progress.value = false
-                    if (response.body()!!.success) {
-                        success.value = response.body()?.data ?: emptyList()
-                    } else {
-                        error.value = response.body()!!.message
-                    }
-                }
-
-                override fun onFailure(
-                    call: Call<BaseResponse<List<CategoryModel>>>,
-                    t: Throwable
-                ) {
-                    progress.value = false
-                    error.value = t.localizedMessage
-                }
-            })
+        sendCall(ApiService.apiClient().getCategory(), error, success, progress)
     }
 
     fun loadCenters(
@@ -52,26 +30,12 @@ class ApiRepository {
         progress: MutableLiveData<Boolean>,
         success: MutableLiveData<List<CenterModel>>
     ) {
-        progress.value = true
-        ApiService.apiClient().getCentersByFilter(getCenterByIdRequest)
-            .enqueue(object : Callback<BaseResponse<List<CenterModel>>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<List<CenterModel>>>,
-                    response: Response<BaseResponse<List<CenterModel>>>
-                ) {
-                    progress.value = false
-                    if (response.body()!!.success) {
-                        success.value = response.body()?.data ?: emptyList()
-                    } else
-                        error.value = response.body()!!.message
-                }
-
-                override fun onFailure(call: Call<BaseResponse<List<CenterModel>>>, t: Throwable) {
-                    progress.value = false
-                    error.value = t.localizedMessage
-                }
-
-            })
+        sendCall(
+            ApiService.apiClient().getCentersByFilter(getCenterByIdRequest),
+            error,
+            success,
+            progress
+        )
     }
 
     fun loadOffers(
@@ -79,26 +43,9 @@ class ApiRepository {
         progress: MutableLiveData<Boolean>,
         success: MutableLiveData<List<OfferModel>>
     ) {
-        progress.value = true
-        ApiService.apiClient().getOffers()
-            .enqueue(object : Callback<BaseResponse<List<OfferModel>>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<List<OfferModel>>>,
-                    response: Response<BaseResponse<List<OfferModel>>>
-                ) {
-                    progress.value = false
-                    if (response.body()!!.success) {
-                        success.value = response.body()?.data ?: emptyList()
-                    } else
-                        error.value = response.body()!!.message
-                }
 
-                override fun onFailure(call: Call<BaseResponse<List<OfferModel>>>, t: Throwable) {
-                    progress.value = false
-                    error.value = t.localizedMessage
-                }
+        sendCall(ApiService.apiClient().getOffers(), error, success, progress)
 
-            })
     }
 
     fun loadNews(
@@ -106,24 +53,7 @@ class ApiRepository {
         progress: MutableLiveData<Boolean>,
         success: MutableLiveData<List<NewsModel>>
     ) {
-        progress.value = true
-        ApiService.apiClient().getNews().enqueue(object : Callback<BaseResponse<List<NewsModel>>> {
-            override fun onResponse(
-                call: Call<BaseResponse<List<NewsModel>>>,
-                response: Response<BaseResponse<List<NewsModel>>>
-            ) {
-                progress.value = false
-                if (response.body()!!.success) {
-                    success.value = response.body()?.data ?: emptyList()
-                } else
-                    error.value = response.body()!!.message
-            }
-
-            override fun onFailure(call: Call<BaseResponse<List<NewsModel>>>, t: Throwable) {
-                progress.value = false
-                error.value = t.localizedMessage
-            }
-        })
+        sendCall(ApiService.apiClient().getNews(), error, success, progress)
     }
 
     fun makeRating(
@@ -134,27 +64,7 @@ class ApiRepository {
         progress: MutableLiveData<Boolean>,
         success: MutableLiveData<String>
     ) {
-        progress.value = true
-        ApiService.apiClient().makeRating(MakeRatingModel(rating, comment, center_id))
-            .enqueue(object : Callback<BaseResponse<Any>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<Any>>,
-                    response: Response<BaseResponse<Any>>
-                ) {
-                    progress.value = false
-                    if (response.isSuccessful) {
-                        success.value = response.body()!!.message
-                    } else {
-                        error.value = response.message()
-                    }
-                }
-
-                override fun onFailure(call: Call<BaseResponse<Any>>, t: Throwable) {
-                    progress.value = false
-                    error.value = t.localizedMessage
-                }
-
-            })
+        sendCall(ApiService.apiClient().makeRating(MakeRatingModel(rating, comment, center_id)), error, success, progress)
     }
 
     fun loadRegion(
@@ -162,25 +72,7 @@ class ApiRepository {
         progress: MutableLiveData<Boolean>,
         success: MutableLiveData<List<RegionModel>>
     ) {
-        progress.value = true
-        ApiService.apiClient().getRegions()
-            .enqueue(object : Callback<BaseResponse<List<RegionModel>>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<List<RegionModel>>>,
-                    response: Response<BaseResponse<List<RegionModel>>>
-                ) {
-                    progress.value = false
-                    if (response.body()!!.success) {
-                        success.value = response.body()?.data ?: emptyList()
-                    } else
-                        error.value = response.body()!!.message
-                }
-
-                override fun onFailure(call: Call<BaseResponse<List<RegionModel>>>, t: Throwable) {
-                    progress.value = false
-                    error.value = t.localizedMessage
-                }
-            })
+        sendCall(ApiService.apiClient().getRegions(), error, success, progress)
     }
 
     fun loadNewsContent(
@@ -189,139 +81,38 @@ class ApiRepository {
         progress: MutableLiveData<Boolean>,
         success: MutableLiveData<NewsModel>
     ) {
-        ApiService.apiClient().getNewsContent(id)
-            .enqueue(object : Callback<BaseResponse<NewsModel>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<NewsModel>>,
-                    response: Response<BaseResponse<NewsModel>>
-                ) {
-                    if (response.body()!!.success) {
-                        success.value = response.body()!!.data
-                    } else {
-                        error.value = response.body()!!.message
-                    }
-                }
-
-                override fun onFailure(call: Call<BaseResponse<NewsModel>>, t: Throwable) {
-                    error.value = t.localizedMessage
-                }
-
-            })
+        sendCall(ApiService.apiClient().getNewsContent(id), error, success, progress)
     }
 
-    fun getUser(error: MutableLiveData<String>, success: MutableLiveData<GetTokenModel>) {
-        ApiService.apiClient().getUser().enqueue(object : Callback<BaseResponse<GetTokenModel>> {
-            override fun onResponse(
-                call: Call<BaseResponse<GetTokenModel>>,
-                response: Response<BaseResponse<GetTokenModel>>
-            ) {
-                if (response.body()!!.success) {
-                    success.value = response.body()!!.data
-                }
-            }
-
-            override fun onFailure(call: Call<BaseResponse<GetTokenModel>>, t: Throwable) {
-                error.value = t.localizedMessage
-            }
-        })
+    fun getUser(error: MutableLiveData<String>, success: MutableLiveData<GetTokenModel>, progress: MutableLiveData<Boolean>) {
+        sendCall(ApiService.apiClient().getUser(), error, success, progress)
     }
 
     fun loadTeachers(
         id: Int,
         error: MutableLiveData<String>,
-        success: MutableLiveData<List<TeacherModel>>
+        success: MutableLiveData<List<TeacherModel>>,
+        progress: MutableLiveData<Boolean>
     ) {
-        ApiService.apiClient().getTeachers(id)
-            .enqueue(object : Callback<BaseResponse<List<TeacherModel>>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<List<TeacherModel>>>,
-                    response: Response<BaseResponse<List<TeacherModel>>>
-                ) {
-                    if (response.body()!!.success) {
-                        success.value = response.body()?.data ?: emptyList()
-                    } else
-                        error.value = response.body()!!.message
-                }
-
-                override fun onFailure(call: Call<BaseResponse<List<TeacherModel>>>, t: Throwable) {
-                    error.value = t.localizedMessage
-                }
-
-            })
+        sendCall(ApiService.apiClient().getTeachers(id), error, success, progress)
     }
 
     fun loadComments(
         id: Int,
         error: MutableLiveData<String>,
-        success: MutableLiveData<List<RatingModel>>
+        success: MutableLiveData<List<RatingModel>>,
+        progress: MutableLiveData<Boolean>
     ) {
-        ApiService.apiClient().getRatings(id)
-            .enqueue(object : Callback<BaseResponse<List<RatingModel>>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<List<RatingModel>>>,
-                    response: Response<BaseResponse<List<RatingModel>>>
-                ) {
-                    if (response.body()!!.success) {
-                        success.value = response.body()?.data ?: emptyList()
-                    } else {
-                        error.value = response.body()!!.message
-                    }
-                }
-
-                override fun onFailure(call: Call<BaseResponse<List<RatingModel>>>, t: Throwable) {
-                    error.value = t.localizedMessage
-                }
-            })
-    }
-
-    fun loadNews(
-        id: Int,
-        error: MutableLiveData<String>,
-        success: MutableLiveData<List<NewsModel>>
-    ) {
-        ApiService.apiClient().getNewsById(id)
-            .enqueue(object : Callback<BaseResponse<List<NewsModel>>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<List<NewsModel>>>,
-                    response: Response<BaseResponse<List<NewsModel>>>
-                ) {
-                    if (response.body()!!.success) {
-                        success.value = response.body()?.data ?: emptyList()
-                    } else {
-                        error.value = response.body()!!.message
-                    }
-                }
-
-                override fun onFailure(call: Call<BaseResponse<List<NewsModel>>>, t: Throwable) {
-                    error.value = t.localizedMessage
-                }
-
-            })
+        sendCall(ApiService.apiClient().getRatings(id), error, success, progress)
     }
 
     fun loadCourses(
         id: Int,
         error: MutableLiveData<String>,
-        success: MutableLiveData<List<CourseModel>>
+        success: MutableLiveData<List<CourseModel>>,
+        progress: MutableLiveData<Boolean>
     ) {
-        ApiService.apiClient().getCourse(id)
-            .enqueue(object : Callback<BaseResponse<List<CourseModel>>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<List<CourseModel>>>,
-                    response: Response<BaseResponse<List<CourseModel>>>
-                ) {
-                    if (response.body()!!.success) {
-                        success.value = response.body()?.data ?: emptyList()
-                    } else {
-                        error.value = response.body()!!.message
-                    }
-                }
-
-                override fun onFailure(call: Call<BaseResponse<List<CourseModel>>>, t: Throwable) {
-                    error.value = t.localizedMessage
-                }
-
-            })
+        sendCall(ApiService.apiClient().getCourse(id), error, success, progress)
     }
 
     fun checkPhone(
@@ -330,32 +121,7 @@ class ApiRepository {
         progress: MutableLiveData<Boolean>,
         success: MutableLiveData<CheckResult>
     ) {
-        progress.value = true
-        ApiService.apiClient().checkPhone(CheckPhoneRequest(phone))
-            .enqueue(object : Callback<BaseResponse<CheckResult>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<CheckResult>>,
-                    response: Response<BaseResponse<CheckResult>>
-                ) {
-                    progress.value = false
-                    if (response.isSuccessful) {
-                        if (response.body()!!.success) {
-                            success.value = response.body()!!.data
-                        } else {
-                            error.value = response.body()!!.message
-                        }
-                    } else {
-                        error.value = response.message()
-                    }
-                }
-
-                override fun onFailure(call: Call<BaseResponse<CheckResult>>, t: Throwable) {
-
-                    progress.value = false
-                    error.value = t.localizedMessage
-                }
-
-            })
+        sendCall(ApiService.apiClient().checkPhone(CheckPhoneRequest(phone)), error, success, progress)
     }
 
     fun login(
@@ -365,28 +131,7 @@ class ApiRepository {
         progress: MutableLiveData<Boolean>,
         success: MutableLiveData<GetTokenModel>
     ) {
-        progress.value = true
-        ApiService.apiClient().login(LoginModel(phone, password))
-            .enqueue(object : Callback<BaseResponse<GetTokenModel>> {
-                override fun onResponse(
-
-                    call: Call<BaseResponse<GetTokenModel>>,
-                    response: Response<BaseResponse<GetTokenModel>>
-                ) {
-                    progress.value = false
-                    if (response.body()!!.success) {
-                        success.value = response.body()!!.data
-                    } else {
-                        error.value = response.body()!!.message
-                    }
-                }
-
-                override fun onFailure(call: Call<BaseResponse<GetTokenModel>>, t: Throwable) {
-                    progress.value = false
-                    error.value = t.localizedMessage
-                }
-
-            })
+        sendCall(ApiService.apiClient().login(LoginModel(phone, password)), error, success, progress)
     }
 
     fun sendCode(
@@ -395,27 +140,7 @@ class ApiRepository {
         progress: MutableLiveData<Boolean>,
         success: MutableLiveData<CheckResult>
     ) {
-        progress.value = true
-        ApiService.apiClient().sendConfirmCode(ConfirmRequest(smsCode))
-            .enqueue(object : Callback<BaseResponse<CheckResult>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<CheckResult>>,
-                    response: Response<BaseResponse<CheckResult>>
-                ) {
-                    progress.value = false
-                    if (response.body()!!.success) {
-                        success.value = response.body()!!.data
-                    } else {
-                        error.value = response.body()!!.message
-                    }
-                }
-
-                override fun onFailure(call: Call<BaseResponse<CheckResult>>, t: Throwable) {
-                    progress.value = false
-                    error.value = t.localizedMessage
-                }
-
-            })
+        sendCall(ApiService.apiClient().sendConfirmCode(ConfirmRequest(smsCode)), error, success, progress)
     }
 
     fun confirmUser(
@@ -426,26 +151,7 @@ class ApiRepository {
         progress: MutableLiveData<Boolean>,
         success: MutableLiveData<GetTokenModel>
     ) {
-        progress.value = true
-        ApiService.apiClient().confirm(ConfirmUser(phone, password, sms_code))
-            .enqueue(object : Callback<BaseResponse<GetTokenModel>> {
-                override fun onResponse(
-                    call: Call<BaseResponse<GetTokenModel>>,
-                    response: Response<BaseResponse<GetTokenModel>>
-                ) {
-                    progress.value = false
-                    if (response.body()!!.success) {
-                        success.value = response.body()!!.data
-                    } else {
-                        error.value = response.body()!!.message
-                    }
-                }
-
-                override fun onFailure(call: Call<BaseResponse<GetTokenModel>>, t: Throwable) {
-                    error.value = t.localizedMessage
-                }
-
-            })
+        sendCall(ApiService.apiClient().confirm(ConfirmUser(phone, password, sms_code)), error, success, progress)
     }
 
     fun setSubscriber(id: Int, error: MutableLiveData<String>, progress: MutableLiveData<Boolean>) {

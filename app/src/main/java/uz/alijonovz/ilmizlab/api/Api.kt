@@ -1,5 +1,6 @@
 package uz.alijonovz.ilmizlab.api
 
+import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -18,61 +19,61 @@ import uz.alijonovz.ilmizlab.model.request.GetCenterByIdRequest
 interface Api {
 
     @POST("make_rating")
-    fun makeRating(@Body request: MakeRatingModel): Call<BaseResponse<Any>>
+    fun makeRating(@Body request: MakeRatingModel): Observable<BaseResponse<String>>
 
     @GET("categories")
-    fun getCategory(): Call<BaseResponse<List<CategoryModel>>>
+    fun getCategory(): Observable<BaseResponse<List<CategoryModel>>>
 
     @GET("offers")
-    fun getOffers(): Call<BaseResponse<List<OfferModel>>>
+    fun getOffers(): Observable<BaseResponse<List<OfferModel>>>
 
     @GET("get_courses/{id}")
-    fun getCourse(@Path("id") id: Int): Call<BaseResponse<List<CourseModel>>>
+    fun getCourse(@Path("id") id: Int): Observable<BaseResponse<List<CourseModel>>>
 
     @GET("get_news/{id}")
-    fun getNewsById(@Path("id") id: Int): Call<BaseResponse<List<NewsModel>>>
+    fun getNewsById(@Path("id") id: Int): Observable<BaseResponse<List<NewsModel>>>
 
     @GET("get_ratings/{id}")
-    fun getRatings(@Path("id") id: Int): Call<BaseResponse<List<RatingModel>>>
+    fun getRatings(@Path("id") id: Int): Observable<BaseResponse<List<RatingModel>>>
 
     @GET("get_news")
-    fun getNews(): Call<BaseResponse<List<NewsModel>>>
+    fun getNews(): Observable<BaseResponse<List<NewsModel>>>
 
     @GET("course_teachers/{id}")
-    fun getTeachers(@Path("id") id: Int): Call<BaseResponse<List<TeacherModel>>>
+    fun getTeachers(@Path("id") id: Int): Observable<BaseResponse<List<TeacherModel>>>
 
     @POST("training_centers")
-    fun getCentersByFilter(@Body request: GetCenterByIdRequest): Call<BaseResponse<List<CenterModel>>>
+    fun getCentersByFilter(@Body request: GetCenterByIdRequest): Observable<BaseResponse<List<CenterModel>>>
 
     @POST("set_subscriber")
     fun setSubscriber(@Body request: Subscribe): Call<BaseResponse<String>>
 
     @GET("regions")
-    fun getRegions(): Call<BaseResponse<List<RegionModel>>>
+    fun getRegions(): Observable<BaseResponse<List<RegionModel>>>
 
     @GET("news/{id}/content")
-    fun getNewsContent(@Path("id") id: Int): Call<BaseResponse<NewsModel>>
+    fun getNewsContent(@Path("id") id: Int): Observable<BaseResponse<NewsModel>>
 
     // ------Authorization-------//
 
     @POST("check_phone")
-    fun checkPhone(@Body request: CheckPhoneRequest): Call<BaseResponse<CheckResult>>
+    fun checkPhone(@Body request: CheckPhoneRequest): Observable<BaseResponse<CheckResult>>
 
     @POST("send_confirm_code")
-    fun sendConfirmCode(@Body sms_code: ConfirmRequest): Call<BaseResponse<CheckResult>>
+    fun sendConfirmCode(@Body sms_code: ConfirmRequest): Observable<BaseResponse<CheckResult>>
 
     @POST("login")
-    fun login(@Body request: LoginModel): Call<BaseResponse<GetTokenModel>>
+    fun login(@Body request: LoginModel): Observable<BaseResponse<GetTokenModel>>
 
     @POST("registration")
-    fun registration(@Body request: RegistrationRequest): Call<BaseResponse<GetTokenModel>>
+    fun registration(@Body request: RegistrationRequest): Observable<BaseResponse<GetTokenModel>>
 
     @POST("reset_password")
-    fun confirm(@Body request: ConfirmUser): Call<BaseResponse<GetTokenModel>>
+    fun confirm(@Body request: ConfirmUser): Observable<BaseResponse<GetTokenModel>>
 
     @GET("user")
-    fun getUser(): Call<BaseResponse<GetTokenModel>>
+    fun getUser(): Observable<BaseResponse<GetTokenModel>>
 
     @GET("check_subscriber/{id}")
-    fun checkSubscriber(@Path("id") id: Int): Call<BaseResponse<Boolean>>
+    fun checkSubscriber(@Path("id") id: Int): Observable<BaseResponse<Boolean>>
 }
