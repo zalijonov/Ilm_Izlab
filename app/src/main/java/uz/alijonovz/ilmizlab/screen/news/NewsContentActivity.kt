@@ -7,18 +7,18 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import uz.alijonovz.ilmizlab.databinding.ActivityNewsContentBinding
 import uz.alijonovz.ilmizlab.model.center.NewsModel
+import uz.alijonovz.ilmizlab.screen.BaseActivity
 import uz.alijonovz.ilmizlab.screen.MainViewModel
 import uz.alijonovz.ilmizlab.utils.Constants
 
-class NewsContentActivity : AppCompatActivity() {
+class NewsContentActivity : BaseActivity<ActivityNewsContentBinding>() {
     lateinit var item: NewsModel
-    lateinit var binding: ActivityNewsContentBinding
     lateinit var viewModel: MainViewModel
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityNewsContentBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
+    override fun getViewBinding(): ActivityNewsContentBinding {
+        return ActivityNewsContentBinding.inflate(layoutInflater)
+    }
+    override fun initView() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         viewModel.error.observe(this) {
@@ -44,7 +44,11 @@ class NewsContentActivity : AppCompatActivity() {
         item = intent.getSerializableExtra("extra_news") as NewsModel
     }
 
-    fun loadData() {
+    override fun loadData() {
         viewModel.loadNewsContent(item.id)
+    }
+
+    override fun updateData() {
+
     }
 }
