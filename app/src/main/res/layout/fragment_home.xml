@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="Kategoriyalar"
+                    android:text="@string/categories"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="Top markazlar"
+                    android:text="@string/top_centers"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
                     android:layout_marginTop="16dp"
-                    android:text="Yaqin atrofdagi markazlar"
+                    android:text="@string/nearest_centers"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />

@@ -29,7 +29,8 @@
                     android:layout_height="32dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="8dp"
-                    android:src="@drawable/ic_baseline_arrow_back_24" />
+                    android:src="@drawable/ic_baseline_arrow_back_24"
+                    android:contentDescription="@string/todo" />
 
                 <TextView
                     android:id="@+id/tvTitle"
@@ -37,7 +38,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Lorem Ipsum"
+                    android:text="@string/lorem"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -80,7 +81,7 @@
                             android:layout_marginRight="4dp"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:text="Lorem Ipsum"
+                            android:text="@string/lorem"
                             android:textColor="@color/white"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -90,7 +91,8 @@
                             android:layout_height="16dp"
                             android:layout_gravity="center_vertical"
                             android:src="@drawable/ic_down_drop"
-                            app:tint="@color/white" />
+                            app:tint="@color/white"
+                            android:contentDescription="@string/todo" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -117,7 +119,7 @@
                             android:layout_marginRight="4dp"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:text="Lorem Ipsum"
+                            android:text="@string/lorem"
                             android:textColor="@color/white"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -127,7 +129,8 @@
                             android:layout_height="16dp"
                             android:layout_gravity="center_vertical"
                             android:src="@drawable/ic_down_drop"
-                            app:tint="@color/white" />
+                            app:tint="@color/white"
+                            android:contentDescription="@string/todo" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -179,7 +182,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|left"
-                    android:text="Saralash"
+                    android:text="@string/sort"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -195,7 +198,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:text="Eng saralari"
+                        android:text="@string/by_rating"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -203,7 +206,7 @@
                         android:id="@+id/sortDistance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Eng yaqinlari"
+                        android:text="@string/by_distance"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 

@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Ushbu bo'lim ochilishi uchun iltimos ro'yhatdan o'ting" />
+            android:text="@string/please_sign" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recSubscribed"

@@ -30,6 +30,7 @@
                         android:id="@+id/imgAvatar"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:contentDescription="@string/todo"
                         android:scaleType="centerCrop"
                         android:src="@color/black" />
                 </androidx.cardview.widget.CardView>
@@ -45,13 +46,13 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="O'qituvchi ismi:" />
+                        android:text="@string/o_qituvchi_ismi" />
 
                     <TextView
                         android:id="@+id/tvName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Lorem Ipsum"
+                        android:text="@string/lorem"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -63,14 +64,14 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Mutaxassisligi:" />
+                        android:text="@string/mutaxassisligi" />
 
 
                     <TextView
                         android:id="@+id/specialization"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="lorem"
+                        android:text="@string/lorem"
                         android:textColor="@color/black"
                         android:textSize="14dp" />
 
@@ -82,13 +83,13 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Ish tajribasi:" />
+                        android:text="@string/ish_tajribasi" />
 
                     <TextView
                         android:id="@+id/experience"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="lorem"
+                        android:text="@string/lorem"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
@@ -103,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:backgroundTint="@color/actionBarColor"
-                android:text="Bog'lanish"
+                android:text="@string/bog_lanish"
                 android:textAllCaps="false" />
         </LinearLayout>
 

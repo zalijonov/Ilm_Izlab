@@ -34,6 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:contentDescription="@string/todo"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_baseline_arrow_back_24"
                     app:tint="@color/white" />
@@ -44,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
                 android:gravity="center"
-                android:text="Ilova haqida"
+                android:text="@string/about_app"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 tools:ignore="RtlSymmetry" />
@@ -67,6 +68,7 @@
                     android:layout_height="180dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="18dp"
+                    android:contentDescription="@string/todo"
                     android:scaleType="centerCrop"
                     android:src="@drawable/launcher" />
 
@@ -94,7 +96,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginBottom="10dp"
                         android:gravity="center"
-                        android:text="Developed by"
+                        android:text="@string/developed_by"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -115,7 +117,7 @@
                                 android:layout_height="match_parent"
                                 android:background="@drawable/devapp"
                                 android:gravity="center"
-                                android:text="/**/"
+                                android:text="@string/icon_text"
                                 android:textColor="@color/white"
                                 android:textSize="24sp" />
                         </androidx.cardview.widget.CardView>
@@ -129,7 +131,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="DEVAPP"
+                                android:text="@string/devapp"
                                 android:textColor="@color/black"
                                 android:textSize="32sp"
                                 android:textStyle="bold" />
@@ -138,7 +140,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="SOFTWARE COMPANY"
+                                android:text="@string/software_company"
                                 android:textColor="@color/black"
                                 android:textSize="8sp"
                                 tools:ignore="SmallSp" />

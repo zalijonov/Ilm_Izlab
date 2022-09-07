@@ -24,6 +24,7 @@
                 android:layout_height="32dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
+                android:contentDescription="@string/todo"
                 android:src="@drawable/ic_baseline_arrow_back_24"
                 app:tint="@color/white" />
 
@@ -34,7 +35,7 @@
                 android:layout_marginHorizontal="8dp"
                 android:layout_weight="1"
                 android:gravity="left|center_vertical"
-                android:text="Tizimga kirish"
+                android:text="@string/log_in"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -46,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
-            android:text="Telefon raqam"
+            android:text="@string/phone_number"
             android:textColor="@color/black" />
 
         <EditText
@@ -55,10 +56,10 @@
             android:layout_height="60dp"
             android:layout_marginTop="8dp"
             android:background="@color/bgColor"
-            android:hint="+9989XXXXXXX"
+            android:hint="@string/phone_hint_example"
             android:inputType="phone"
             android:paddingStart="16dp"
-            android:text="+998"
+            android:text="@string/phone_start_numbers"
             tools:ignore="RtlSymmetry" />
 
         <TextView
@@ -67,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
-            android:text="Ismingiz"
+            android:text="@string/your_name"
             android:textColor="@color/black" />
 
         <EditText
@@ -76,7 +77,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="8dp"
             android:background="@color/bgColor"
-            android:hint="Ismingizni kiriting..."
+            android:hint="@string/enter_name"
             android:inputType="phone"
             android:paddingStart="16dp"
             tools:ignore="RtlSymmetry, SpeakableTextPresentCheck" />
@@ -87,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
-            android:text="Parol"
+            android:text="@string/password"
             android:textColor="@color/black" />
 
         <EditText
@@ -96,7 +97,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="8dp"
             android:background="@color/bgColor"
-            android:hint="Parolni kiriting..."
+            android:hint="@string/enter_password"
             android:inputType="textPassword"
             android:paddingStart="16dp"
             tools:ignore="RtlSymmetry, SpeakableTextPresentCheck" />
@@ -107,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
-            android:text="Parolni tasdiqlash"
+            android:text="@string/confirm_password"
             android:textColor="@color/black" />
 
         <EditText
@@ -116,7 +117,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="8dp"
             android:background="@color/bgColor"
-            android:hint="Parolni qayta kiriting..."
+            android:hint="@string/enter_confirmation_password"
             android:inputType="textPassword"
             android:paddingStart="16dp"
             tools:ignore="RtlSymmetry, SpeakableTextPresentCheck" />
@@ -127,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:layout_marginTop="8dp"
-            android:text="SMS kod"
+            android:text="@string/sms_code"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -212,7 +213,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:backgroundTint="@color/button_color"
-            android:text="Kirish" />
+            android:text="@string/sign_in" />
     </LinearLayout>
 
     <FrameLayout

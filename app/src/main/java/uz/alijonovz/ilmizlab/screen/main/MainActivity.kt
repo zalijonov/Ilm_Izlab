@@ -75,7 +75,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.btnMenu.setOnClickListener {
             binding.drawer.openDrawer(GravityCompat.START)
 
-
             if (PrefUtils.getToken().isNullOrEmpty()) {
 
                 binding.navigation.actionControlCenters.visibility = View.GONE

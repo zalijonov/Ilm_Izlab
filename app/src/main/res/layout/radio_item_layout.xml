@@ -6,6 +6,6 @@
     android:layout_marginHorizontal="8dp"
     android:clickable="true"
     android:focusable="true"
-    android:text="District"
+    android:text="@string/lorem"
     android:textColor="@color/black"
     android:textSize="14sp" />

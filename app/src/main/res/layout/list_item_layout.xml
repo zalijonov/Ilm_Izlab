@@ -37,7 +37,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="Lorem Ipsum"
+                    android:text="@string/lorem"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 

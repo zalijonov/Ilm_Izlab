@@ -24,7 +24,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="7sp"
         android:gravity="center_vertical"
-        android:text="Custom Navigation Drawer Row"
+        android:text="@string/custom_navigation_drawer_row"
         android:textSize="18sp" />
 
 </LinearLayout>

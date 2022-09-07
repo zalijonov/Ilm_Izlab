@@ -31,8 +31,8 @@ class TeachersAdapter(val items: List<TeacherModel>) :
             .into(holder.binding.imgAvatar)
 
         holder.binding.tvFeed.setOnClickListener {
-            var uri = Uri.parse(item.info_link)
-            var intent = Intent(Intent.ACTION_VIEW, uri)
+            val uri = Uri.parse(item.info_link)
+            val intent = Intent(Intent.ACTION_VIEW, uri)
             it.context.startActivity(intent)
         }
     }
