@@ -25,6 +25,7 @@
                 android:layout_height="32dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
+                android:contentDescription="@string/todo"
                 android:src="@drawable/ic_menu" />
 
             <TextView
@@ -32,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="ILM IZLAB"
+                android:text="@string/ilm_izlab_title"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -43,6 +44,7 @@
                 android:layout_height="32dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="8dp"
+                android:contentDescription="@string/todo"
                 android:src="@drawable/ic_room" />
 
         </LinearLayout>
@@ -89,6 +91,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:contentDescription="@string/todo"
                 android:src="@drawable/ic_logout"
                 app:tint="@color/red" />
 
@@ -97,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:gravity="center"
-                android:text="Tizimdan chiqish"
+                android:text="@string/log_out"
                 android:textColor="@color/red"
                 android:textSize="14sp"
                 android:textStyle="bold" />

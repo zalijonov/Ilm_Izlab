@@ -24,6 +24,7 @@
                 android:layout_height="32dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
+                android:contentDescription="@string/todo"
                 android:src="@drawable/ic_baseline_arrow_back_24"
                 app:tint="@color/white" />
 
@@ -33,7 +34,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Hududni tanlang"
+                android:text="@string/select_region"
                 android:textColor="@color/white"
 
                 android:textSize="18sp"
@@ -74,7 +75,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="8dp"
                 android:backgroundTint="@color/button_color"
-                android:text="Tanlash"
+                android:text="@string/select"
                 android:textAllCaps="false" />
         </LinearLayout>
 

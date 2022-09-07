@@ -40,13 +40,14 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="Shahar Tuman"
+                        android:text="@string/lorem"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
+                        android:contentDescription="@string/todo"
                         android:src="@drawable/ic_down_drop"
                         app:tint="@color/white" />
                 </LinearLayout>
@@ -76,13 +77,14 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="Fan"
+                        android:text="@string/lorem"
                         android:textColor="@color/white"
                         android:textSize="14sp" />
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
+                        android:contentDescription="@string/todo"
                         android:src="@drawable/ic_down_drop"
                         app:tint="@color/white" />
                 </LinearLayout>
@@ -130,6 +132,7 @@
                         android:id="@+id/imgCenter"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:contentDescription="@string/todo"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_launcher_background" />
                 </androidx.cardview.widget.CardView>
@@ -145,7 +148,7 @@
                         android:id="@+id/tvCenter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Lorem Ipsum"
+                        android:text="@string/lorem"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -153,7 +156,7 @@
                         android:id="@+id/tvSciences"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="Lorem Ipsum"
+                        android:text="@string/lorem"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -172,7 +175,7 @@
                         android:id="@+id/tvRating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5.0"
+                        android:text="@string/lorem"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -208,7 +211,7 @@
                     android:backgroundTint="@color/white"
                     android:drawableLeft="@drawable/ic_navigation_svgrepo_com"
                     android:drawableTint="@color/button_color"
-                    android:text="Borish!"
+                    android:text="@string/navigate"
                     android:textAllCaps="false"
                     android:textColor="@color/button_color"
                     app:rippleColor="@color/button_color"
@@ -222,7 +225,7 @@
                     android:backgroundTint="@color/button_color"
                     android:drawableLeft="@drawable/ic_info_circle_svgrepo_com"
                     android:drawableTint="@color/white"
-                    android:text="Batafsil!"
+                    android:text="@string/batafsil"
                     android:textAllCaps="false"
                     android:textColor="@color/white" />
 

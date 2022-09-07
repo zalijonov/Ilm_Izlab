@@ -15,6 +15,7 @@
             android:id="@+id/imgNew"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/todo"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_background" />
 
@@ -39,6 +40,7 @@
                     android:id="@+id/imgCenter"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:contentDescription="@string/todo"
                     android:scaleType="centerCrop"
                     android:src="@drawable/launcher" />
             </androidx.cardview.widget.CardView>
@@ -66,7 +68,7 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Lorem Ipsum"
+                android:text="@string/lorem"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -87,6 +89,7 @@
                         android:layout_width="14dp"
                         android:layout_height="14dp"
                         android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/todo"
                         android:src="@drawable/ic_baseline_access_time_24"
                         app:tint="@color/white" />
 
@@ -95,7 +98,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="4dp"
-                        android:text="Lorem Ipsum"
+                        android:text="@string/lorem"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -111,6 +114,7 @@
                         android:layout_width="14dp"
                         android:layout_height="14dp"
                         android:layout_gravity="center_vertical"
+                        android:contentDescription="@string/todo"
                         android:src="@drawable/ic_room"
                         app:tint="@color/white" />
 
@@ -119,7 +123,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="4dp"
-                        android:text="Lorem Ipsum"
+                        android:text="@string/lorem"
                         android:textColor="@color/white"
                         android:textSize="12sp" />
                 </LinearLayout>

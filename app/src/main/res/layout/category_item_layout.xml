@@ -21,6 +21,7 @@
                 android:id="@+id/itemImage"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:contentDescription="@string/todo"
                 android:scaleType="center"
                 android:src="@drawable/ic_launcher_background"
                 app:tint="@color/primaryColor" />
@@ -31,7 +32,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="8dp"
                 android:gravity="center_vertical"
-                android:text="Lorem Ipsum"
+                android:text="@string/lorem"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />

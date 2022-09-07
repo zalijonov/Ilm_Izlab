@@ -26,7 +26,7 @@
                     android:id="@+id/tvCourse"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Lorem Ipsum"
+                    android:text="@string/lorem"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -35,7 +35,7 @@
                     android:id="@+id/tvPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Lorem Ipsum"
+                    android:text="@string/lorem"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -43,7 +43,7 @@
                     android:id="@+id/tvScience"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Lorem Ipsum"
+                    android:text="@string/lorem"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:backgroundTint="@color/actionBarColor"
-                android:text="Ustozlar"
+                android:text="@string/teachers_1"
                 android:textAllCaps="false"
                 android:textSize="14sp"
                 android:textStyle="bold"

@@ -24,6 +24,7 @@
                 android:layout_height="32dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="8dp"
+                android:contentDescription="@string/todo"
                 android:src="@drawable/ic_baseline_arrow_back_24"
                 app:tint="@color/white" />
 
@@ -37,7 +38,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="Lorem Ipsum"
+                android:text="@string/lorem"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -49,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginTop="24dp"
+            android:contentDescription="@string/todo"
             android:padding="8dp"
             android:scaleType="centerCrop" />
 
@@ -58,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:padding="8dp"
-            android:text="Lorem Ipsum"
+            android:text="@string/lorem"
             android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>
