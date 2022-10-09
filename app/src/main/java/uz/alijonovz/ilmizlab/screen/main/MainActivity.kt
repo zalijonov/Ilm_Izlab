@@ -1,6 +1,7 @@
 package uz.alijonovz.ilmizlab.screen.main
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -206,6 +207,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         )
     }
 
+    @SuppressLint("MissingPermission")
     private fun getCurrentLocation() {
         if (checkPermissions()) {
             if (isLocationEnabled()) {

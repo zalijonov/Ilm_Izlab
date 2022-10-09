@@ -49,7 +49,7 @@ class SubscribedFragment : BaseFragment<FragmentSubscribedBinding>() {
             loadData()
         }
 
-        if (PrefUtils.getToken().isNullOrEmpty()) {
+        if (PrefUtils.getToken().isEmpty()) {
             binding.logPlease.visibility = View.VISIBLE
             binding.recSubscribed.visibility = View.GONE
         } else {
